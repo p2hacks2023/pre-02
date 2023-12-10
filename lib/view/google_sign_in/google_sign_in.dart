@@ -35,9 +35,10 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   Text(googleSignInAccount!.displayName.toString()),
                   Image.network(googleSignInAccount!.photoUrl.toString()),
                   const Text("loginされてるねえ"),
-                  TextButton(child: Text("次に進む"),onPressed: () => router.push('/home'),)
+                  TextButton(child: Text("次に進む"),onPressed: () => router.push('/home'),),
                 ],
-              )
+              ),
+              TextButton(child: Text("firestore test"),onPressed: () => router.push('/test/firestore'),)
             ],
           );
         }

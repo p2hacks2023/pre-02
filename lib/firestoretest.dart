@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_tutorial/routes.dart';
+import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
+import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FireStore extends StatefulWidget {
   const FireStore({super.key});
@@ -10,10 +14,11 @@ class FireStore extends StatefulWidget {
 
 class _FireStoreState extends State<FireStore> {
   Future<QuerySnapshot<Object?>>? get;
+  PostsRepository postsRepository = new PostsRepository();
   @override
   Widget build(BuildContext context) {
     CollectionReference tests = FirebaseFirestore.instance.collection('tests');
-    
+    String? getFromFirestore;
     Future<void> addTest() {
       return tests
         .add({
@@ -31,9 +36,28 @@ class _FireStoreState extends State<FireStore> {
           child: Text("add test"),
         ),
         TextButton(
-          onPressed: ()=> tests.get(),
+          onPressed: () async => {
+            postsRepository.getAllPosts(),
+          },
           child: Text("みる"),
         ),
+        if(getFromFirestore != null) Text(getFromFirestore!),
+        Consumer(
+          builder: (context, ref, child) {
+            if(ref.watch(userViewModelProvider).name != null) {
+            return TextButton(
+              child: Text("add画面に進む"),
+              onPressed: () => router.push('post/add'),
+            );
+            }else {
+              return Text("ログインしてください");
+            }
+          }
+        ),
+        TextButton(
+          onPressed: () => router.pop(),
+          child: Text("戻る"),
+        )
         /*
         if(get != null) FutureBuilder(
           builder: (context,AsyncSnapshot snapshot){
