@@ -17,11 +17,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: AuthPage(),
-        ),
+        appBar: AppBar(title: Text("FIREBASE"),),
+        body: AuthPage(),
       ),
     );
   }
@@ -35,12 +34,26 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  //final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  late GoogleSignInAuthentication googleSignInAuthentication;
+  late GoogleSignInAccount? googleSignInAccount;
   bool logined = false;
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: ()=>signInWithGoogle(), child: Text("おして"));
+    return Column(
+      children: [
+        TextButton(onPressed: ()=> signInWithGoogle(), child: Text("おして")),
+        Text(logined.toString()),
+        if(logined) Column(
+          children: [
+            Text(googleSignInAccount!.displayName.toString()),
+            Image.network(googleSignInAccount!.photoUrl.toString()),
+            const Text("loginされてるねえ"),
+          ],
+        )
+      ],
+    );
   }
 
   void login(){
@@ -50,10 +63,10 @@ class _AuthPageState extends State<AuthPage> {
   void logout() => setState(() => logined = false);
 
   Future signInWithGoogle() async {
-    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication;
+    googleSignInAccount = await googleSignIn.signIn();
     if(googleSignInAccount != null){
-      googleSignInAuthentication = await googleSignInAccount.authentication;
+      googleSignInAuthentication = await googleSignInAccount!.authentication;
+      setState(() => logined = true);
     }else {
       debugPrint("aiueo");
     }
