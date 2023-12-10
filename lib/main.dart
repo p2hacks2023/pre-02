@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_tutorial/firebase_options.dart';
+import 'package:firebase_tutorial/firestoretest.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +22,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text("FIREBASE"),),
-        body: AuthPage(),
+        body: FireStore(),
       ),
     );
   }
@@ -38,6 +40,7 @@ class _AuthPageState extends State<AuthPage> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   late GoogleSignInAuthentication googleSignInAuthentication;
   late GoogleSignInAccount? googleSignInAccount;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   bool logined = false;
   @override
   Widget build(BuildContext context) {
