@@ -19,12 +19,13 @@ dependencies:
   #json_annotation: 4.8.1
 
   # 遷移関連
-  routemaster: 1.0.1
+  routemaster: ^1.0.1
   build_runner: ^2.4.7
   cloud_firestore: ^4.13.5
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.2
   google_sign_in: ^6.1.6
+
   http: ^1.1.0
 
 dev_dependencies:
