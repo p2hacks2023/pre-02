@@ -13,6 +13,7 @@ class UserViewModel extends _$UserViewModel {
   }
 
   void addUser(String email, String url, String introduction, String name, String nickname){
+    //TODO ニックネームとイントロダクション取得する
     state = UserState(
       name: name,
       nickname: nickname,
@@ -21,4 +22,8 @@ class UserViewModel extends _$UserViewModel {
       introduction: introduction,
     );
   }
+  /*
+  Future<void> changeIntroduction(String introduction){
+
+  }*/
 }
