@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class AddPost extends ConsumerWidget{
   String poster = "tiharu717@gmail.com";
   String description = "";
-  Uri image_url = Uri.dataFromString("https://takutk.com/obs/img/math/DSC_0685.JPG");
+  Uri image_url = Uri.parse("https://takutk.com/obs/img/math/DSC_0685.JPG");
   PostsRepository postsRepository = new PostsRepository();
   
   @override
