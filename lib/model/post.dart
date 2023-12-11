@@ -17,7 +17,7 @@ class Post with _$Post {
   }) = _Post;
   
   factory Post.fromFirestore(
-    QueryDocumentSnapshot<Object?> snapshot,
+    DocumentSnapshot<Object?> snapshot,
   ) {
     final data = snapshot.data() as Map<String, dynamic>;
     String poster = data['poster'];
@@ -44,6 +44,7 @@ class Post with _$Post {
       id: snapshot.id,
     );
   }
+  
   /*
   Map<String, dynamic> toFirestore() {
     return {

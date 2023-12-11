@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
@@ -19,6 +20,9 @@ class _FireStoreState extends State<FireStore> {
   Widget build(BuildContext context) {
     CollectionReference tests = FirebaseFirestore.instance.collection('tests');
     String? getFromFirestore;
+    String? formId = "0eOPPDVJikKfA3SEyaYN";
+    Post? idFetched;
+    
     Future<void> addTest() {
       return tests
         .add({
@@ -41,7 +45,7 @@ class _FireStoreState extends State<FireStore> {
           },
           child: Text("みる"),
         ),
-        if(getFromFirestore != null) Text(getFromFirestore!),
+        if(getFromFirestore != null) Text(getFromFirestore),
         Consumer(
           builder: (context, ref, child) {
             if(ref.watch(userViewModelProvider).name != null) {
@@ -57,7 +61,18 @@ class _FireStoreState extends State<FireStore> {
         TextButton(
           onPressed: () => router.pop(),
           child: Text("戻る"),
-        )
+        ),
+        Material(
+          child: TextField(
+            decoration: InputDecoration(label: Text("ポストidを入力"),),
+            onChanged: ((value) => formId = value),
+          ),
+        ),
+        if(formId != null) TextButton(child: Text("ポストを見る"),
+        onPressed: () => postsRepository.getPost(formId!).then((value) => setState(() => debugPrint(value.description))),
+        ),
+        if(idFetched != null) Text(idFetched!.toString()),
+        
         /*
         if(get != null) FutureBuilder(
           builder: (context,AsyncSnapshot snapshot){
