@@ -15,7 +15,7 @@ class FireStore extends StatefulWidget {
 
 class _FireStoreState extends State<FireStore> {
   Future<QuerySnapshot<Object?>>? get;
-  PostsRepository postsRepository = new PostsRepository();
+  PostsRepository postsRepository = PostsRepository();
   @override
   Widget build(BuildContext context) {
     CollectionReference tests = FirebaseFirestore.instance.collection('tests');
@@ -29,49 +29,52 @@ class _FireStoreState extends State<FireStore> {
           'name': "aiueo",
           'id' : 1022063,
         })
-        .then((value) => print("testadded"))
-        .catchError((error) => print("エラーが起きた${error.toString()}"));
+        .then((value) => debugPrint("testadded"))
+        .catchError((error) => debugPrint("エラーが起きた${error.toString()}"));
     }
     
     return Column(
       children: [
         TextButton(
           onPressed: () => addTest(),
-          child: Text("add test"),
+          child: const Text("add test"),
         ),
         TextButton(
           onPressed: () async => {
             postsRepository.getAllPosts(),
           },
-          child: Text("みる"),
+          child: const Text("みる"),
         ),
+        // ignore: unnecessary_null_comparison
         if(getFromFirestore != null) Text(getFromFirestore),
         Consumer(
           builder: (context, ref, child) {
+            // ignore: unnecessary_null_comparison
             if(ref.watch(userViewModelProvider).nickname != null) {
             return TextButton(
-              child: Text("add画面に進む"),
+              child: const Text("add画面に進む"),
               onPressed: () => router.push('post/add'),
             );
             }else {
-              return Text("ログインしてください");
+              return const Text("ログインしてください");
             }
           }
         ),
         TextButton(
           onPressed: () => router.pop(),
-          child: Text("戻る"),
+          child: const Text("戻る"),
         ),
         Material(
           child: TextField(
-            decoration: InputDecoration(label: Text("ポストidを入力"),),
+            decoration: const InputDecoration(label: Text("ポストidを入力"),),
             onChanged: ((value) => formId = value),
           ),
         ),
-        if(formId != null) TextButton(child: Text("ポストを見る"),
+        if(formId != null) TextButton(child: const Text("ポストを見る"),
         onPressed: () => postsRepository.getPost(formId!).then((value) => setState(() => debugPrint(value.description))),
         ),
-        if(idFetched != null) Text(idFetched!.toString()),
+        // ignore: unnecessary_null_comparison
+        if(idFetched != null) Text(idFetched.toString()),
         
         /*
         if(get != null) FutureBuilder(

@@ -1,5 +1,4 @@
 import 'package:firebase_tutorial/firestoretest.dart';
-import 'package:firebase_tutorial/main.dart';
 import 'package:firebase_tutorial/view/google_sign_in/signup.dart';
 import 'package:firebase_tutorial/view/home.dart';
 import 'package:firebase_tutorial/view/post/add_post.dart';
@@ -11,7 +10,7 @@ final router = RoutemasterDelegate(
   routesBuilder: (_) => RouteMap(
     routes: {
       '/': (route) {
-        return MaterialPage(child: GoogleAuthSignin());
+        return const MaterialPage(child: GoogleAuthSignin());
       },
       '/signup': (route) {
         return MaterialPage(child: SignUp());
@@ -20,12 +19,12 @@ final router = RoutemasterDelegate(
         return MaterialPage(child: AddPost());
       },
       '/home': (router) {
-        return MaterialPage(child: Home());
+        return const MaterialPage(child: Home());
       },
       
       //テスト系
       '/test/firestore': (router) {
-        return MaterialPage(child: FireStore());
+        return const MaterialPage(child: FireStore());
       },
       '/test/firestore/post/add': (route) {
         return MaterialPage(child: AddPost());

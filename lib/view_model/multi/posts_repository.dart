@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_tutorial/model/post.dart';
 import 'package:flutter/foundation.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class PostsRepository {
   final CollectionReference _postsRef = FirebaseFirestore.instance.collection('posts');
@@ -9,8 +8,8 @@ class PostsRepository {
   Future<List<Post>> getAllPosts() async{
     List<Post> posts = [];
     await _postsRef.orderBy('post_datetime', descending: true).get().then(
-      (QuerySnapshot) {
-        for(var docSnapshot in QuerySnapshot.docs) {
+      (QuerySnapshot<Object?> querySnapshot) {
+        for(var docSnapshot in querySnapshot.docs) {
           posts.add(Post.fromFirestore(docSnapshot));
           debugPrint(Post.fromFirestore(docSnapshot).id);
         }
@@ -26,16 +25,16 @@ class PostsRepository {
     throw Exception("no post idは：$id");
   }
 
-  Future<void> addPost(Post _post) async{
+  Future<void> addPost(Post post) async{
     try{
       _postsRef.add({
-        'poster': _post.poster,
-        'description': _post.description,
-        'image_url': _post.image_url.toString(),
+        'poster': post.poster,
+        'description': post.description,
+        'image_url': post.imageUrl.toString(),
         'favorite_array': [],
         'post_datetime': FieldValue.serverTimestamp(),
       });
-    }catch(Exception){
+    }on Exception{
       throw Exception;
     }
   }

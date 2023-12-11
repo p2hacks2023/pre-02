@@ -18,9 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Post {
   String get poster => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  Uri get image_url => throw _privateConstructorUsedError;
-  List<dynamic>? get favorite_array => throw _privateConstructorUsedError;
-  DateTime? get post_datetime => throw _privateConstructorUsedError;
+  Uri get imageUrl => throw _privateConstructorUsedError;
+  List<dynamic>? get favoriteArray => throw _privateConstructorUsedError;
+  DateTime? get postDatetime => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,9 +35,9 @@ abstract class $PostCopyWith<$Res> {
   $Res call(
       {String poster,
       String description,
-      Uri image_url,
-      List<dynamic>? favorite_array,
-      DateTime? post_datetime,
+      Uri imageUrl,
+      List<dynamic>? favoriteArray,
+      DateTime? postDatetime,
       String? id});
 }
 
@@ -56,9 +56,9 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   $Res call({
     Object? poster = null,
     Object? description = null,
-    Object? image_url = null,
-    Object? favorite_array = freezed,
-    Object? post_datetime = freezed,
+    Object? imageUrl = null,
+    Object? favoriteArray = freezed,
+    Object? postDatetime = freezed,
     Object? id = freezed,
   }) {
     return _then(_value.copyWith(
@@ -70,17 +70,17 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image_url: null == image_url
-          ? _value.image_url
-          : image_url // ignore: cast_nullable_to_non_nullable
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as Uri,
-      favorite_array: freezed == favorite_array
-          ? _value.favorite_array
-          : favorite_array // ignore: cast_nullable_to_non_nullable
+      favoriteArray: freezed == favoriteArray
+          ? _value.favoriteArray
+          : favoriteArray // ignore: cast_nullable_to_non_nullable
               as List<dynamic>?,
-      post_datetime: freezed == post_datetime
-          ? _value.post_datetime
-          : post_datetime // ignore: cast_nullable_to_non_nullable
+      postDatetime: freezed == postDatetime
+          ? _value.postDatetime
+          : postDatetime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       id: freezed == id
           ? _value.id
@@ -100,9 +100,9 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
   $Res call(
       {String poster,
       String description,
-      Uri image_url,
-      List<dynamic>? favorite_array,
-      DateTime? post_datetime,
+      Uri imageUrl,
+      List<dynamic>? favoriteArray,
+      DateTime? postDatetime,
       String? id});
 }
 
@@ -118,9 +118,9 @@ class __$$PostImplCopyWithImpl<$Res>
   $Res call({
     Object? poster = null,
     Object? description = null,
-    Object? image_url = null,
-    Object? favorite_array = freezed,
-    Object? post_datetime = freezed,
+    Object? imageUrl = null,
+    Object? favoriteArray = freezed,
+    Object? postDatetime = freezed,
     Object? id = freezed,
   }) {
     return _then(_$PostImpl(
@@ -132,17 +132,17 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image_url: null == image_url
-          ? _value.image_url
-          : image_url // ignore: cast_nullable_to_non_nullable
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as Uri,
-      favorite_array: freezed == favorite_array
-          ? _value._favorite_array
-          : favorite_array // ignore: cast_nullable_to_non_nullable
+      favoriteArray: freezed == favoriteArray
+          ? _value._favoriteArray
+          : favoriteArray // ignore: cast_nullable_to_non_nullable
               as List<dynamic>?,
-      post_datetime: freezed == post_datetime
-          ? _value.post_datetime
-          : post_datetime // ignore: cast_nullable_to_non_nullable
+      postDatetime: freezed == postDatetime
+          ? _value.postDatetime
+          : postDatetime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       id: freezed == id
           ? _value.id
@@ -158,32 +158,37 @@ class _$PostImpl implements _Post {
   _$PostImpl(
       {required this.poster,
       required this.description,
-      required this.image_url,
-      final List<dynamic>? favorite_array,
-      this.post_datetime,
+      required this.imageUrl,
+      final List<dynamic>? favoriteArray,
+      this.postDatetime,
       this.id})
-      : _favorite_array = favorite_array;
+      : _favoriteArray = favoriteArray;
 
   @override
   final String poster;
   @override
   final String description;
   @override
-  final Uri image_url;
-  final List<dynamic>? _favorite_array;
+  final Uri imageUrl;
+  final List<dynamic>? _favoriteArray;
   @override
-  List<dynamic>? get favorite_array {
-    final value = _favorite_array;
+  List<dynamic>? get favoriteArray {
+    final value = _favoriteArray;
     if (value == null) return null;
-    if (_favorite_array is EqualUnmodifiableListView) return _favorite_array;
+    if (_favoriteArray is EqualUnmodifiableListView) return _favoriteArray;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
-  final DateTime? post_datetime;
+  final DateTime? postDatetime;
   @override
   final String? id;
+
+  @override
+  String toString() {
+    return 'Post(poster: $poster, description: $description, imageUrl: $imageUrl, favoriteArray: $favoriteArray, postDatetime: $postDatetime, id: $id)';
+  }
 
   @override
   bool operator ==(dynamic other) {
@@ -193,18 +198,18 @@ class _$PostImpl implements _Post {
             (identical(other.poster, poster) || other.poster == poster) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.image_url, image_url) ||
-                other.image_url == image_url) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             const DeepCollectionEquality()
-                .equals(other._favorite_array, _favorite_array) &&
-            (identical(other.post_datetime, post_datetime) ||
-                other.post_datetime == post_datetime) &&
+                .equals(other._favoriteArray, _favoriteArray) &&
+            (identical(other.postDatetime, postDatetime) ||
+                other.postDatetime == postDatetime) &&
             (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, poster, description, image_url,
-      const DeepCollectionEquality().hash(_favorite_array), post_datetime, id);
+  int get hashCode => Object.hash(runtimeType, poster, description, imageUrl,
+      const DeepCollectionEquality().hash(_favoriteArray), postDatetime, id);
 
   @JsonKey(ignore: true)
   @override
@@ -217,9 +222,9 @@ abstract class _Post implements Post {
   factory _Post(
       {required final String poster,
       required final String description,
-      required final Uri image_url,
-      final List<dynamic>? favorite_array,
-      final DateTime? post_datetime,
+      required final Uri imageUrl,
+      final List<dynamic>? favoriteArray,
+      final DateTime? postDatetime,
       final String? id}) = _$PostImpl;
 
   @override
@@ -227,11 +232,11 @@ abstract class _Post implements Post {
   @override
   String get description;
   @override
-  Uri get image_url;
+  Uri get imageUrl;
   @override
-  List<dynamic>? get favorite_array;
+  List<dynamic>? get favoriteArray;
   @override
-  DateTime? get post_datetime;
+  DateTime? get postDatetime;
   @override
   String? get id;
   @override

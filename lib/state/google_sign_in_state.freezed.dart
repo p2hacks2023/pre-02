@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$GoogleSignInState {
   String get email => throw _privateConstructorUsedError;
-  String get icon_url => throw _privateConstructorUsedError;
+  String get iconUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GoogleSignInStateCopyWith<GoogleSignInState> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $GoogleSignInStateCopyWith<$Res> {
           GoogleSignInState value, $Res Function(GoogleSignInState) then) =
       _$GoogleSignInStateCopyWithImpl<$Res, GoogleSignInState>;
   @useResult
-  $Res call({String email, String icon_url});
+  $Res call({String email, String iconUrl});
 }
 
 /// @nodoc
@@ -47,16 +47,16 @@ class _$GoogleSignInStateCopyWithImpl<$Res, $Val extends GoogleSignInState>
   @override
   $Res call({
     Object? email = null,
-    Object? icon_url = null,
+    Object? iconUrl = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      icon_url: null == icon_url
-          ? _value.icon_url
-          : icon_url // ignore: cast_nullable_to_non_nullable
+      iconUrl: null == iconUrl
+          ? _value.iconUrl
+          : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -70,7 +70,7 @@ abstract class _$$GoogleSignInStateImplCopyWith<$Res>
       __$$GoogleSignInStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String icon_url});
+  $Res call({String email, String iconUrl});
 }
 
 /// @nodoc
@@ -85,16 +85,16 @@ class __$$GoogleSignInStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? email = null,
-    Object? icon_url = null,
+    Object? iconUrl = null,
   }) {
     return _then(_$GoogleSignInStateImpl(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      icon_url: null == icon_url
-          ? _value.icon_url
-          : icon_url // ignore: cast_nullable_to_non_nullable
+      iconUrl: null == iconUrl
+          ? _value.iconUrl
+          : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -103,16 +103,16 @@ class __$$GoogleSignInStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GoogleSignInStateImpl implements _GoogleSignInState {
-  _$GoogleSignInStateImpl({required this.email, required this.icon_url});
+  _$GoogleSignInStateImpl({required this.email, required this.iconUrl});
 
   @override
   final String email;
   @override
-  final String icon_url;
+  final String iconUrl;
 
   @override
   String toString() {
-    return 'GoogleSignInState(email: $email, icon_url: $icon_url)';
+    return 'GoogleSignInState(email: $email, iconUrl: $iconUrl)';
   }
 
   @override
@@ -121,12 +121,11 @@ class _$GoogleSignInStateImpl implements _GoogleSignInState {
         (other.runtimeType == runtimeType &&
             other is _$GoogleSignInStateImpl &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.icon_url, icon_url) ||
-                other.icon_url == icon_url));
+            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, icon_url);
+  int get hashCode => Object.hash(runtimeType, email, iconUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -139,12 +138,12 @@ class _$GoogleSignInStateImpl implements _GoogleSignInState {
 abstract class _GoogleSignInState implements GoogleSignInState {
   factory _GoogleSignInState(
       {required final String email,
-      required final String icon_url}) = _$GoogleSignInStateImpl;
+      required final String iconUrl}) = _$GoogleSignInStateImpl;
 
   @override
   String get email;
   @override
-  String get icon_url;
+  String get iconUrl;
   @override
   @JsonKey(ignore: true)
   _$$GoogleSignInStateImplCopyWith<_$GoogleSignInStateImpl> get copyWith =>

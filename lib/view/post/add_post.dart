@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +6,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class AddPost extends ConsumerWidget{
   String poster = "tiharu717@gmail.com";
   String description = "";
-  Uri image_url = Uri.parse("https://takutk.com/obs/img/math/DSC_0685.JPG");
-  PostsRepository postsRepository = new PostsRepository();
+  Uri imageUrl = Uri.parse("https://takutk.com/obs/img/math/DSC_0685.JPG");
+  PostsRepository postsRepository = PostsRepository();
   
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: Text("add post")),
+      appBar: AppBar(title: const Text("add post")),
       body: Column(
         children: [
           TextField(
             onChanged: (value) => description = value,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               label: Text("テキスト"),
             ),
           ),
@@ -28,11 +27,11 @@ class AddPost extends ConsumerWidget{
                 Post(
                 poster: poster,
                 description: description,
-                image_url: image_url,
-                post_datetime: DateTime.now()
+                imageUrl: imageUrl,
+                postDatetime: DateTime.now()
               ));
           }, 
-          child: Text("投稿する")),
+          child: const Text("投稿する")),
         ],
       ),
     );

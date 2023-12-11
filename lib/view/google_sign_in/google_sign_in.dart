@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_tutorial/routes.dart';
-import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:firebase_tutorial/view_model/single/google_sign_in_view_model.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +25,7 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("aiueo"),),
+      appBar: AppBar(title: const Text("aiueo"),),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, _) {
           return Column(
@@ -40,12 +37,12 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   Text(googleSignInAccount!.displayName.toString()),
                   Image.network(googleSignInAccount!.photoUrl.toString()),
                   const Text("loginされてるねえ"),
-                  TextButton(child: Text("次に進む"),onPressed: () { 
+                  TextButton(child: const Text("次に進む"),onPressed: () { 
                     usersRepository.signin(ref);
                     router.push('/home');
                   },),
                   if(!existed) TextButton(
-                    child: Text("ニックネームを設定する"),
+                    child: const Text("ニックネームを設定する"),
                     onPressed: () {
                       ref.watch(googleSignInViewModelProvider);
                       ref.read(googleSignInViewModelProvider.notifier).setGoogleUser(googleSignInAccount!.email, googleSignInAccount!.photoUrl.toString());
@@ -54,7 +51,7 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   )
                 ],
               ),
-              TextButton(child: Text("firestore test"),onPressed: () => router.push('/test/firestore'),)
+              TextButton(child: const Text("firestore test"),onPressed: () => router.push('/test/firestore'),)
             ],
           );
         }
@@ -68,13 +65,13 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
   
   void logout() => setState(() => logined = false);
 
-  Future signInWithGoogle(WidgetRef _ref) async {
+  Future signInWithGoogle(WidgetRef ref) async {
     UsersRepository usersRepository = UsersRepository();
     googleSignInAccount = await googleSignIn.signIn();
     if(googleSignInAccount != null){
       googleSignInAuthentication = await googleSignInAccount!.authentication;
       setState(() => logined = true);
-      _ref.read(googleSignInViewModelProvider.notifier).setGoogleUser(googleSignInAccount!.email.toString(), googleSignInAccount!.photoUrl.toString());
+      ref.read(googleSignInViewModelProvider.notifier).setGoogleUser(googleSignInAccount!.email.toString(), googleSignInAccount!.photoUrl.toString());
       if(await usersRepository.isExisted(googleSignInAccount!.email.toString())) 
       { //すでにユーザーが存在したら
         setState(() {

@@ -10,9 +10,9 @@ class Post with _$Post {
   factory Post({
     required String poster,
     required String description,
-    required Uri image_url,
-    List? favorite_array,
-    DateTime? post_datetime,
+    required Uri imageUrl,
+    List? favoriteArray,
+    DateTime? postDatetime,
     String? id,
   }) = _Post;
   
@@ -21,26 +21,26 @@ class Post with _$Post {
   ) {
     final data = snapshot.data() as Map<String, dynamic>;
     String poster = data['poster'];
-    if(poster == null || poster == '') throw Exception("invalid poster");
+    if(poster == '') throw Exception("invalid poster");
     String description = data['description'];
     Uri url = Uri.parse(data['image_url']);
     
     //TODO favoriteの実装
     List favorites = data['favorite_array'] as List;
 
-    Timestamp post_timestamp = data['post_datetime'];
-    DateTime _post_datetime = post_timestamp.toDate();
+    Timestamp postTimestamp = data['post_datetime'];
+    DateTime postDatetime = postTimestamp.toDate();
 
     //_post_datetime = data?['post_datetime'].toDate();
-    _post_datetime = DateTime.now();
+    postDatetime = DateTime.now();
     debugPrint("fromfirestore");
 
     return Post(
       poster: poster,
       description: description,
-      image_url: url,
-      favorite_array: favorites,
-      post_datetime: _post_datetime,
+      imageUrl: url,
+      favoriteArray: favorites,
+      postDatetime: postDatetime,
       id: snapshot.id,
     );
   }
@@ -55,9 +55,4 @@ class Post with _$Post {
       if (post_datetime != null) "population": post_datetime,
     };
   }*/
-  
-  @override
-  String toString() {
-    return 'YourClassName(poster: $poster, description: $description, image_url: $image_url, post_datetime: ${post_datetime?.toIso8601String()}, id: $id)';
-  }
 }

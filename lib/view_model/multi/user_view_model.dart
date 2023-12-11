@@ -1,6 +1,5 @@
 import 'package:firebase_tutorial/model/user.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
-import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_view_model.g.dart';
@@ -20,7 +19,6 @@ class UserViewModel extends _$UserViewModel {
   Future<void> registerUser(String email, String url, String introduction, String nickname)async{
     UsersRepository usersRepository = UsersRepository();
     await usersRepository.register(email, url, introduction, nickname);
-    //TODO ニックネームとイントロダクション取得する
     state = User(
       email: email,
       iconUrl: Uri.parse(url),

@@ -9,26 +9,28 @@ class SignUp extends ConsumerWidget {
   UsersRepository usersRepository = UsersRepository();
   
   String nickname = "";
+
+  SignUp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: Text("aiueo"),),
+      appBar: AppBar(title: const Text("aiueo"),),
       body: Column(
         children: [
           Material(
             child: TextField(
-              decoration: InputDecoration(label: Text("ニックネーム")),
+              decoration: const InputDecoration(label: Text("ニックネーム")),
               onChanged: (value) => nickname = value,
             ),
           ),
-          Text(ref.watch(googleSignInViewModelProvider).email!),
+          Text(ref.watch(googleSignInViewModelProvider).email),
           TextButton(
             onPressed: () {
               GoogleSignInState googleSignInState = ref.watch(googleSignInViewModelProvider);
               debugPrint(ref.watch(googleSignInViewModelProvider).email);
-              ref.read(userViewModelProvider.notifier).registerUser(googleSignInState.email!, googleSignInState.icon_url.toString(), "", nickname);
+              ref.read(userViewModelProvider.notifier).registerUser(googleSignInState.email, googleSignInState.iconUrl.toString(), "", nickname);
             }, 
-            child: Text("サインアップ"),
+            child: const Text("サインアップ"),
           )
         ],
       ),
