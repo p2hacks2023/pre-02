@@ -28,15 +28,3 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-
-
-
-class AuthenticationProvider {
-  static Future<User?> signIn() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final GoogleAuthProvider authProvider = GoogleAuthProvider();
-    final UserCredential userCredential = 
-      await auth.signInWithPopup(authProvider);
-    return userCredential.user;
-  }
-}
