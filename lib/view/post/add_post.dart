@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddPost extends ConsumerWidget{
   String description = "";
-  Uri imageUrl = Uri.parse("https://takutk.com/obs/img/math/DSC_0685.JPG");
+  Uri imageUrl = Uri.parse("https://cdn.discordapp.com/attachments/1182963676630753310/1182964298058829895/DSC_0049_1.JPG?ex=65869c5b&is=6574275b&hm=0cedc7a9c0583980372b27151cc7f15c2d99fe575bca9800c8c715a737b55e88&G");
   PostsRepository postsRepository = PostsRepository();
   
   @override
