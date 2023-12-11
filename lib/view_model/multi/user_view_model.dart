@@ -1,5 +1,6 @@
 import 'package:firebase_tutorial/model/user.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_view_model.g.dart';
@@ -26,8 +27,14 @@ class UserViewModel extends _$UserViewModel {
       nickname: nickname,
     );
   }
+
   void setUser(User user){
     state = user;
+  }
+  
+  Future<void> changeIntroduction(WidgetRef ref, String introduction) async{
+    UsersRepository usersRepository = UsersRepository();
+    await usersRepository.changeIntroduction(ref, introduction);
   }
   /*
   Future<void> changeIntroduction(String introduction){

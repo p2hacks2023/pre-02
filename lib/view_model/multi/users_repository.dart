@@ -23,6 +23,7 @@ class UsersRepository{
     return out;
   }
   
+  //登録用(サーバーに登録されてない時)
   Future<void> register(String email, String url, String introduction, String nickname)async{
     try{
       userRef.add({
@@ -36,6 +37,7 @@ class UsersRepository{
     }
   }
 
+  //サインイン
   Future<void> signin(WidgetRef ref) async{
     try{
       User user;
@@ -50,4 +52,19 @@ class UsersRepository{
     }
   }
   
+  //自己紹介の変更用
+  Future<void> changeIntroduction(WidgetRef ref, String introduction) async {
+    try {
+      String id = "";
+      await userRef.where('email', isEqualTo: ref.watch(googleSignInViewModelProvider).email).get()
+      .then((querySnapshot) {
+        id = querySnapshot.docs[0].id;
+      });
+      await userRef.doc(id).update({
+        'introduction': introduction,
+      });
+    }on Exception{
+      throw Exception("自己紹介の変更に失敗しました");
+    }
+  }
 }

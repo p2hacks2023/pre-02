@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_tutorial/model/post.dart';
 import 'package:flutter/foundation.dart';
@@ -25,7 +27,7 @@ class PostsRepository {
     throw Exception("no post idは：$id");
   }
 
-  Future<void> addPost(Post post) async{
+  Future<void> addPost(Post post, Image? image) async{
     try{
       _postsRef.add({
         'poster': post.poster,

@@ -22,6 +22,7 @@ class _FireStoreState extends State<FireStore> {
     String? getFromFirestore;
     String? formId = "0eOPPDVJikKfA3SEyaYN";
     Post? idFetched;
+    String introduction = "";
     
     Future<void> addTest() {
       return tests
@@ -75,6 +76,20 @@ class _FireStoreState extends State<FireStore> {
         ),
         // ignore: unnecessary_null_comparison
         if(idFetched != null) Text(idFetched.toString()),
+        Material(
+          child: TextField(
+            decoration: const InputDecoration(label: Text("自己紹介")),
+            onChanged: (value) => introduction = value,
+          ),
+        ),
+        Consumer(
+          builder: (context, ref, _) {
+            return TextButton(
+              onPressed: () {
+                ref.read(userViewModelProvider.notifier).changeIntroduction(ref, introduction);
+              }, child:const Text("自己紹介を変更"));
+          }
+        ) 
         
         /*
         if(get != null) FutureBuilder(

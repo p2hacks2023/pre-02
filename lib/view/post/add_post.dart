@@ -29,7 +29,7 @@ class AddPost extends ConsumerWidget{
                 description: description,
                 imageUrl: imageUrl,
                 postDatetime: DateTime.now()
-              ));
+              ), null);
           }, 
           child: const Text("投稿する")),
         ],
