@@ -1,25 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_view_model.dart';
+part of 'google_sign_in_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userViewModelHash() => r'ba31dde3dfd3375c4be873fda0eb3e06b6cd0f7d';
+String _$googleSignInViewModelHash() =>
+    r'e6dbd78c4b4c5484b0ce0cdb62155a16295a42c1';
 
-/// See also [UserViewModel].
-@ProviderFor(UserViewModel)
-final userViewModelProvider = NotifierProvider<UserViewModel, User>.internal(
-  UserViewModel.new,
-  name: r'userViewModelProvider',
+/// See also [GoogleSignInViewModel].
+@ProviderFor(GoogleSignInViewModel)
+final googleSignInViewModelProvider =
+    NotifierProvider<GoogleSignInViewModel, GoogleSignInState>.internal(
+  GoogleSignInViewModel.new,
+  name: r'googleSignInViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$userViewModelHash,
+      : _$googleSignInViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$UserViewModel = Notifier<User>;
+typedef _$GoogleSignInViewModel = Notifier<GoogleSignInState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

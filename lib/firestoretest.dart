@@ -48,7 +48,7 @@ class _FireStoreState extends State<FireStore> {
         if(getFromFirestore != null) Text(getFromFirestore),
         Consumer(
           builder: (context, ref, child) {
-            if(ref.watch(userViewModelProvider).name != null) {
+            if(ref.watch(userViewModelProvider).nickname != null) {
             return TextButton(
               child: Text("add画面に進む"),
               onPressed: () => router.push('post/add'),

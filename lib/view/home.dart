@@ -9,7 +9,7 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        Text(ref.watch(userViewModelProvider).name!)
+        Text(ref.watch(userViewModelProvider).nickname)
       ],
     );
   }

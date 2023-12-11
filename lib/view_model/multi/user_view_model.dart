@@ -1,26 +1,35 @@
-import 'package:firebase_tutorial/state/user_state.dart';
+import 'package:firebase_tutorial/model/user.dart';
+import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
 
 part 'user_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class UserViewModel extends _$UserViewModel {
   @override
-  UserState build(){
-    return UserState();
+  User build(){
+    return User(
+      email: "",
+      nickname: "",
+      iconUrl: Uri.parse(""),
+      introduction: "",
+    );
   }
 
-  void addUser(String email, String url, String introduction, String name, String nickname){
+  Future<void> registerUser(String email, String url, String introduction, String nickname)async{
+    UsersRepository usersRepository = UsersRepository();
+    await usersRepository.register(email, url, introduction, nickname);
     //TODO ニックネームとイントロダクション取得する
-    state = UserState(
-      name: name,
-      nickname: nickname,
+    state = User(
       email: email,
       iconUrl: Uri.parse(url),
       introduction: introduction,
+      nickname: nickname,
     );
+  }
+  void setUser(User user){
+    state = user;
   }
   /*
   Future<void> changeIntroduction(String introduction){
