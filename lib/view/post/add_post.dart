@@ -24,16 +24,13 @@ class AddPost extends ConsumerWidget{
           ),
           TextButton(
           onPressed: (){
-            try{
-              postsRepository.addPost(Post(
+              postsRepository.addPost(
+                Post(
                 poster: poster,
                 description: description,
                 image_url: image_url,
                 post_datetime: DateTime.now()
               ));
-            }catch(e){
-    
-            }
           }, 
           child: Text("投稿する")),
         ],
