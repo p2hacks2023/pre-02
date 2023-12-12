@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_post_viewmodel.dart';
+part of 'hiru_viewmodel.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addPostViewModelHash() => r'79bc9495308a6785cb87dfdba206904efa0ae221';
+String _$hiruViewModelHash() => r'be94ef3a1f3512836a428319f8dde4a3dda17201';
 
-/// See also [AddPostViewModel].
-@ProviderFor(AddPostViewModel)
-final addPostViewModelProvider =
-    AutoDisposeNotifierProvider<AddPostViewModel, AddPostState>.internal(
-  AddPostViewModel.new,
-  name: r'addPostViewModelProvider',
+/// See also [HiruViewModel].
+@ProviderFor(HiruViewModel)
+final hiruViewModelProvider =
+    AutoDisposeAsyncNotifierProvider<HiruViewModel, HiruState>.internal(
+  HiruViewModel.new,
+  name: r'hiruViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$addPostViewModelHash,
+      : _$hiruViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AddPostViewModel = AutoDisposeNotifier<AddPostState>;
+typedef _$HiruViewModel = AutoDisposeAsyncNotifier<HiruState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

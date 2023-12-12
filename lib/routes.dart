@@ -1,4 +1,6 @@
 import 'package:firebase_tutorial/firestoretest.dart';
+import 'package:firebase_tutorial/view/Hiru/hiru.dart';
+import 'package:firebase_tutorial/view/Yoru/yoru.dart';
 import 'package:firebase_tutorial/view/google_sign_in/signup.dart';
 import 'package:firebase_tutorial/view/home.dart';
 import 'package:firebase_tutorial/view/post/add_post.dart';
@@ -21,7 +23,9 @@ final router = RoutemasterDelegate(
       '/home': (router) {
         return const MaterialPage(child: Home());
       },
-      
+      '/hiru': (router) {
+        return const MaterialPage(child: Hiru());
+      },
       //テスト系
       '/test/firestore': (router) {
         return const MaterialPage(child: FireStore());

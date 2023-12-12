@@ -1,6 +1,8 @@
 import 'package:firebase_tutorial/routes.dart';
+import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:firebase_tutorial/view_model/single/google_sign_in_view_model.dart';
+import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -37,8 +39,12 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   Text(googleSignInAccount!.displayName.toString()),
                   Image.network(googleSignInAccount!.photoUrl.toString()),
                   const Text("loginされてるねえ"),
-                  TextButton(child: const Text("次に進む"),onPressed: () { 
-                    router.push('/home');
+                  TextButton(child: const Text("次に進む"),onPressed: () async { 
+                    if(CheckHiruYoru.isHiru()) {
+                      ref.read(hiruViewModelProvider.notifier).initializePosts();
+                      router.replace('/hiru');
+                    }
+                    if(CheckHiruYoru.isYoru()) router.replace('/yoru');//replaceだと，遷移後戻れなくなる．
                   },),
                   if(!existed) TextButton(
                     child: const Text("ニックネームを設定する"),

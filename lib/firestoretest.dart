@@ -21,7 +21,7 @@ class _FireStoreState extends State<FireStore> {
     CollectionReference tests = FirebaseFirestore.instance.collection('tests');
     String? getFromFirestore;
     String? formId = "0eOPPDVJikKfA3SEyaYN";
-    Post? idFetched;
+    Post? idFetched; //登録済みかどうか
     String introduction = "";
     
     Future<void> addTest() {
@@ -89,7 +89,8 @@ class _FireStoreState extends State<FireStore> {
                 ref.read(userViewModelProvider.notifier).changeIntroduction(ref, introduction);
               }, child:const Text("自己紹介を変更"));
           }
-        ) 
+        ) ,
+
         
         /*
         if(get != null) FutureBuilder(
