@@ -1,13 +1,16 @@
-import 'package:firebase_tutorial/model/post.dart';
-import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
+import 'dart:io';
+
+import 'package:firebase_tutorial/model/prePost.dart';
+import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
+import 'package:firebase_tutorial/view_model/single/add_post_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddPost extends ConsumerWidget{
   String description = "";
-  Uri imageUrl = Uri.parse("https://cdn.discordapp.com/attachments/1182963676630753310/1182964298058829895/DSC_0049_1.JPG?ex=65869c5b&is=6574275b&hm=0cedc7a9c0583980372b27151cc7f15c2d99fe575bca9800c8c715a737b55e88&G");
-  PostsRepository postsRepository = PostsRepository();
+  final ImagePicker _picker = ImagePicker();
   
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,20 +24,36 @@ class AddPost extends ConsumerWidget{
               label: Text("テキスト"),
             ),
           ),
-          TextButton(
-          onPressed: (){
-              postsRepository.addPost(
-                Post(
-                poster: ref.watch(userViewModelProvider).email,
-                description: description,
-                imageUrl: imageUrl,
-                postDatetime: DateTime.now()
-              ), null);
-          }, 
-          child: const Text("投稿する")),
+          if(!ref.watch(addPostViewModelProvider).uploading)
+            TextButton(
+              onPressed: () async{
+                ref.read(addPostViewModelProvider.notifier).changeIsUploading(true); //アップロード中に状態を変更
+                await ref.read(addPostViewModelProvider.notifier).addPost(
+                  PrePost(
+                    description: description,
+                    poster: ref.watch(userViewModelProvider).email,
+                  ),
+                  ref
+                );
+                router.pop();
+              }, 
+              child: const Text("投稿する")
+            ),
+          OutlinedButton(
+            onPressed: () async {
+              final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+              if (image != null) {
+                ref.read(addPostViewModelProvider.notifier).addFile(File(image.path));//_file = File(_image!.path);
+              } else {
+                debugPrint("写真選択キャンセル");
+              }
+            },
+            child: const Text('画像を選択')
+          ),
+          if(ref.watch(addPostViewModelProvider).file != null) Image.file(ref.watch(addPostViewModelProvider).file!)
+          
         ],
       ),
     );
   }
-
 }
