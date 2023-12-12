@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'hiru_viewmodel.g.dart';
 
-
+@riverpod
 class HiruViewModel extends _$HiruViewModel{
   @override
   Future<HiruState> build() async{
@@ -20,6 +20,7 @@ class HiruViewModel extends _$HiruViewModel{
   Future<void> initializePosts() async {
     PostsRepository postsRepository = PostsRepository();
     debugPrint("initializeposts");
+    state = AsyncLoading();
     List<Post> posts = await postsRepository.getAllPosts();
     posts.forEach((element) {debugPrint("こんにちは：element.description");});
     state = AsyncData<HiruState> (
@@ -27,6 +28,7 @@ class HiruViewModel extends _$HiruViewModel{
         posts: posts,
       )
     );
+    debugPrint("initialize終わった");
     /*
     state = AsyncData(HiruState(posts: []));
     state.when( //データの時

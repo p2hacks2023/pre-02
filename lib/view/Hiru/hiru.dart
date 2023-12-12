@@ -8,6 +8,7 @@ class Hiru extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    debugPrint("昼ビルド");
     return Scaffold(
       appBar: AppBar(title: TextButton(child: Text("更新"),onPressed: () async => ref.read(hiruViewModelProvider.notifier).initializePosts(),)),
       body: ref.watch(hiruViewModelProvider).when(
@@ -17,8 +18,9 @@ class Hiru extends ConsumerWidget {
             itemBuilder: (context, index) {
               return Column(
                 children: [
+                  Text(data.posts[index].nickname),
                   Image.network(data.posts[index].imageUrl.toString()),
-                  
+                  Text(data.posts[index].description),
                 ],
               );
             },

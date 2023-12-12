@@ -49,6 +49,7 @@ class PostsRepository {
         'image_url': imagePath,
         'favorite_array': [],
         'post_datetime': FieldValue.serverTimestamp(),
+        'nickname': nickname,
       });
     }on Exception{
       throw Exception;

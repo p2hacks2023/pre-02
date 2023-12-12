@@ -19,6 +19,7 @@ mixin _$Post {
   String get poster => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   Uri get imageUrl => throw _privateConstructorUsedError;
+  String get nickname => throw _privateConstructorUsedError;
   List<dynamic>? get favoriteArray => throw _privateConstructorUsedError;
   DateTime? get postDatetime => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
@@ -36,6 +37,7 @@ abstract class $PostCopyWith<$Res> {
       {String poster,
       String description,
       Uri imageUrl,
+      String nickname,
       List<dynamic>? favoriteArray,
       DateTime? postDatetime,
       String? id});
@@ -57,6 +59,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? poster = null,
     Object? description = null,
     Object? imageUrl = null,
+    Object? nickname = null,
     Object? favoriteArray = freezed,
     Object? postDatetime = freezed,
     Object? id = freezed,
@@ -74,6 +77,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as Uri,
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String,
       favoriteArray: freezed == favoriteArray
           ? _value.favoriteArray
           : favoriteArray // ignore: cast_nullable_to_non_nullable
@@ -101,6 +108,7 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       {String poster,
       String description,
       Uri imageUrl,
+      String nickname,
       List<dynamic>? favoriteArray,
       DateTime? postDatetime,
       String? id});
@@ -119,6 +127,7 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? poster = null,
     Object? description = null,
     Object? imageUrl = null,
+    Object? nickname = null,
     Object? favoriteArray = freezed,
     Object? postDatetime = freezed,
     Object? id = freezed,
@@ -136,6 +145,10 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as Uri,
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String,
       favoriteArray: freezed == favoriteArray
           ? _value._favoriteArray
           : favoriteArray // ignore: cast_nullable_to_non_nullable
@@ -159,6 +172,7 @@ class _$PostImpl implements _Post {
       {required this.poster,
       required this.description,
       required this.imageUrl,
+      required this.nickname,
       final List<dynamic>? favoriteArray,
       this.postDatetime,
       this.id})
@@ -170,6 +184,8 @@ class _$PostImpl implements _Post {
   final String description;
   @override
   final Uri imageUrl;
+  @override
+  final String nickname;
   final List<dynamic>? _favoriteArray;
   @override
   List<dynamic>? get favoriteArray {
@@ -187,7 +203,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(poster: $poster, description: $description, imageUrl: $imageUrl, favoriteArray: $favoriteArray, postDatetime: $postDatetime, id: $id)';
+    return 'Post(poster: $poster, description: $description, imageUrl: $imageUrl, nickname: $nickname, favoriteArray: $favoriteArray, postDatetime: $postDatetime, id: $id)';
   }
 
   @override
@@ -200,6 +216,8 @@ class _$PostImpl implements _Post {
                 other.description == description) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname) &&
             const DeepCollectionEquality()
                 .equals(other._favoriteArray, _favoriteArray) &&
             (identical(other.postDatetime, postDatetime) ||
@@ -208,8 +226,15 @@ class _$PostImpl implements _Post {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, poster, description, imageUrl,
-      const DeepCollectionEquality().hash(_favoriteArray), postDatetime, id);
+  int get hashCode => Object.hash(
+      runtimeType,
+      poster,
+      description,
+      imageUrl,
+      nickname,
+      const DeepCollectionEquality().hash(_favoriteArray),
+      postDatetime,
+      id);
 
   @JsonKey(ignore: true)
   @override
@@ -223,6 +248,7 @@ abstract class _Post implements Post {
       {required final String poster,
       required final String description,
       required final Uri imageUrl,
+      required final String nickname,
       final List<dynamic>? favoriteArray,
       final DateTime? postDatetime,
       final String? id}) = _$PostImpl;
@@ -233,6 +259,8 @@ abstract class _Post implements Post {
   String get description;
   @override
   Uri get imageUrl;
+  @override
+  String get nickname;
   @override
   List<dynamic>? get favoriteArray;
   @override

@@ -41,7 +41,8 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   const Text("loginされてるねえ"),
                   TextButton(child: const Text("次に進む"),onPressed: () async { 
                     if(CheckHiruYoru.isHiru()) {
-                      ref.read(hiruViewModelProvider.notifier).initializePosts();
+                      await ref.read(hiruViewModelProvider.notifier).initializePosts();
+                      await Future.delayed(Duration(seconds: 5));
                       router.replace('/hiru');
                     }
                     if(CheckHiruYoru.isYoru()) router.replace('/yoru');//replaceだと，遷移後戻れなくなる．

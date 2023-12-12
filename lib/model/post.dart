@@ -11,6 +11,7 @@ class Post with _$Post {
     required String poster,
     required String description,
     required Uri imageUrl,
+    required String nickname,
     List? favoriteArray,
     DateTime? postDatetime,
     String? id,
@@ -24,6 +25,7 @@ class Post with _$Post {
     if(poster == '') throw Exception("invalid poster");
     String description = data['description'];
     Uri url = Uri.parse(data['image_url']);
+    String nickname = data['nickname'];
     
     //TODO favoriteの実装
     List favorites = data['favorite_array'] as List;
@@ -36,6 +38,7 @@ class Post with _$Post {
     debugPrint("fromfirestore");
 
     return Post(
+      nickname: nickname,
       poster: poster,
       description: description,
       imageUrl: url,
