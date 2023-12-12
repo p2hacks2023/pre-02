@@ -38,7 +38,6 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   Image.network(googleSignInAccount!.photoUrl.toString()),
                   const Text("loginされてるねえ"),
                   TextButton(child: const Text("次に進む"),onPressed: () { 
-                    usersRepository.signin(ref);
                     router.push('/home');
                   },),
                   if(!existed) TextButton(
@@ -74,6 +73,7 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
       ref.read(googleSignInViewModelProvider.notifier).setGoogleUser(googleSignInAccount!.email.toString(), googleSignInAccount!.photoUrl.toString());
       if(await usersRepository.isExisted(googleSignInAccount!.email.toString())) 
       { //すでにユーザーが存在したら
+        usersRepository.signin(ref);
         setState(() {
           existed = true;
         });

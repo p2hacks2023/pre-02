@@ -656,6 +656,9 @@ PODS:
   - Firebase/Firestore (10.18.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.18.0)
+  - Firebase/Storage (10.18.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 10.18.0)
   - firebase_auth (4.15.2):
     - Firebase/Auth (= 10.18.0)
     - firebase_core
@@ -667,6 +670,10 @@ PODS:
     - Firebase/Database (= 10.18.0)
     - firebase_core
     - Flutter
+  - firebase_storage (11.5.5):
+    - Firebase/Storage (= 10.18.0)
+    - firebase_core
+    - Flutter
   - FirebaseAppCheckInterop (10.18.0)
   - FirebaseAuth (10.18.0):
     - FirebaseAppCheckInterop (~> 10.17)
@@ -675,6 +682,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
     - RecaptchaInterop (~> 100.0)
+  - FirebaseAuthInterop (10.18.0)
   - FirebaseCore (10.18.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
@@ -708,6 +716,12 @@ PODS:
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - FirebaseSharedSwift (10.19.0)
+  - FirebaseStorage (10.18.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - Flutter (1.0.0)
   - google_sign_in_ios (0.0.1):
     - Flutter
@@ -796,6 +810,8 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (2.3.0)
+  - image_picker_ios (0.0.1):
+    - Flutter
   - leveldb-library (1.22.2)
   - nanopb (2.30909.1):
     - nanopb/decode (= 2.30909.1)
@@ -810,8 +826,10 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
+  - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -821,6 +839,7 @@ SPEC REPOS:
     - Firebase
     - FirebaseAppCheckInterop
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
@@ -828,6 +847,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseFirestoreInternal
     - FirebaseSharedSwift
+    - FirebaseStorage
     - GoogleSignIn
     - GoogleUtilities
     - "gRPC-C++"
@@ -848,10 +868,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_database:
     :path: ".symlinks/plugins/firebase_database/ios"
+  firebase_storage:
+    :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
   google_sign_in_ios:
     :path: ".symlinks/plugins/google_sign_in_ios/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
@@ -862,8 +886,10 @@ SPEC CHECKSUMS:
   firebase_auth: 0099901926d85bda1688f6e451755b413c16154d
   firebase_core: 0af4a2b24f62071f9bf283691c0ee41556dcb3f5
   firebase_database: 46962668fb03fb9396c791c6da151b376426ff3a
+  firebase_storage: 3f15388480a9459b76522a2e9348a0fab0760aa3
   FirebaseAppCheckInterop: 3cd914842ba46f4304050874cd284de82f154ffd
   FirebaseAuth: 12314b438fa76048540c8fb86d6cfc9e08595176
+  FirebaseAuthInterop: 5818713dcd7239beb96c1125e4b14d6a5a910e5f
   FirebaseCore: 2322423314d92f946219c8791674d2f3345b598f
   FirebaseCoreExtension: 62b201498aa10535801cdf3448c7f4db5e24ed80
   FirebaseCoreInternal: 8eb002e564b533bdcf1ba011f33f2b5c10e2ed4a
@@ -871,6 +897,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 171bcbb57a1a348dd171a0d5e382c03ef85a77bb
   FirebaseFirestoreInternal: a15405fb607dfd14edd568bba77028f4c7a69688
   FirebaseSharedSwift: f34eeb7d3ea87a34497629b6ca41657beadef76a
+  FirebaseStorage: 8333c4b183764cdd170d9539a61322b71c23adff
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   google_sign_in_ios: 1256ff9d941db546373826966720b0c24804bcdd
   GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
@@ -879,6 +906,7 @@ SPEC CHECKSUMS:
   gRPC-Core: a21a60aefc08c68c247b439a9ef97174b0c54f96
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4

@@ -7,7 +7,7 @@ part of 'google_sign_in_view_model.dart';
 // **************************************************************************
 
 String _$googleSignInViewModelHash() =>
-    r'fe88793f321c7d5ffe507bbd9472e14a40ddeae2';
+    r'1be401fb4283fb8850e5143fe42ad2a302bcc69c';
 
 /// See also [GoogleSignInViewModel].
 @ProviderFor(GoogleSignInViewModel)
