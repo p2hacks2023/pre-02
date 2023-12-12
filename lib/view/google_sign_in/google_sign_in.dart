@@ -27,7 +27,10 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("aiueo"),),
+      appBar: AppBar(title: Padding(
+        padding: const EdgeInsets.only(top: 200),
+        child: Image.network("https://cdn.discordapp.com/attachments/1182963676630753310/1184067727653089321/42_20231212184157.PNG?ex=658aa001&is=65782b01&hm=ce2de4de6d269b8b7b7ef85fd66eea9298eb1443e2d564d4186e13e54ac3ed4f&",height: 250,),
+      ),),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, _) {
           return Column(
@@ -41,8 +44,8 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   const Text("loginされてるねえ"),
                   TextButton(child: const Text("次に進む"),onPressed: () async { 
                     if(CheckHiruYoru.isHiru()) {
-                      await ref.read(hiruViewModelProvider.notifier).initializePosts();
-                      await Future.delayed(Duration(seconds: 5));
+                      // await ref.read(hiruViewModelProvider.notifier).initializePosts();
+                      // await Future.delayed(Duration(seconds: 5));
                       router.replace('/hiru');
                     }
                     if(CheckHiruYoru.isYoru()) router.replace('/yoru');//replaceだと，遷移後戻れなくなる．

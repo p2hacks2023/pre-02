@@ -10,10 +10,14 @@ part 'hiru_viewmodel.g.dart';
 
 @riverpod
 class HiruViewModel extends _$HiruViewModel{
+  late PostsRepository postsRepository;
+
   @override
   Future<HiruState> build() async{
+    postsRepository = PostsRepository();
+
     return HiruState(
-      posts: [],
+      posts: await postsRepository.getAllPosts(),
     );
   }
   
@@ -22,7 +26,7 @@ class HiruViewModel extends _$HiruViewModel{
     debugPrint("initializeposts");
     state = AsyncLoading();
     List<Post> posts = await postsRepository.getAllPosts();
-    posts.forEach((element) {debugPrint("こんにちは：element.description");});
+    posts.forEach((element) {debugPrint("こんにちは：${element.description}");});
     state = AsyncData<HiruState> (
       HiruState(
         posts: posts,
