@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_tutorial/firebase_options.dart';
 import 'package:firebase_tutorial/routes.dart';
 import 'package:flutter/material.dart';

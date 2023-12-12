@@ -28,5 +28,18 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!--　TODO  GoogleService-Info.plistからREVERSED_CLIENT_IDキーをコピーして、
+   			   ここの値を置き換える -->
+				<string>com.googleusercontent.apps.292958277046-8g5v7g0pme5o3j6u61hng6mqsj5emi98</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
