@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/model/prePost.dart';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
 
 class PostsRepository {
   final CollectionReference _postsRef = FirebaseFirestore.instance.collection('posts');
@@ -18,6 +19,31 @@ class PostsRepository {
           posts.add(Post.fromFirestore(docSnapshot));
           Post post = Post.fromFirestore(docSnapshot);
           debugPrint("${post.id}：${post.description}：${post.imageUrl}");
+        }
+      }
+    );
+    return posts;
+  }
+  
+  //ログインしてるユーザー以外の投稿を見る
+  Future<List<Post>> getAllPostsWithoutMe(String email) async {
+    List<Post> posts = [];
+    await _postsRef.where('poster', isNotEqualTo: email).orderBy('poster').orderBy('post_datetime', descending: true).get().then(
+      (QuerySnapshot<Object?> querySnapshot) {
+        for(var docSnapshot in querySnapshot.docs) {
+          posts.add(Post.fromFirestore(docSnapshot));
+        }
+      }
+    );
+    return posts;
+  }
+  
+  Future<List<Post>> getAllPostsOnlyMe(String email) async{
+    List<Post> posts = [];
+    await _postsRef.where('poster', isEqualTo: email).orderBy('post_datetime', descending: true).get().then(
+      (QuerySnapshot<Object?> querySnapshot) {
+        for(var docSnapshot in querySnapshot.docs) {
+          posts.add(Post.fromFirestore(docSnapshot));
         }
       }
     );

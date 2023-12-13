@@ -2,6 +2,7 @@
 import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/state/hiru_state.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
+import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,7 +18,9 @@ class HiruViewModel extends _$HiruViewModel{
     postsRepository = PostsRepository();
 
     return HiruState(
+      postsWithoutMe: await postsRepository.getAllPostsWithoutMe(ref.watch(userViewModelProvider).email),
       posts: await postsRepository.getAllPosts(),
+      postsOnlyMe: await postsRepository.getAllPostsOnlyMe(ref.watch(userViewModelProvider).email),
     );
   }
   
@@ -26,9 +29,10 @@ class HiruViewModel extends _$HiruViewModel{
     debugPrint("initializeposts");
     state = AsyncLoading();
     List<Post> posts = await postsRepository.getAllPosts();
-    posts.forEach((element) {debugPrint("こんにちは：${element.description}");});
     state = AsyncData<HiruState> (
       HiruState(
+        postsWithoutMe: await postsRepository.getAllPostsWithoutMe(ref.watch(userViewModelProvider).email),
+        postsOnlyMe: await postsRepository.getAllPostsOnlyMe(ref.watch(userViewModelProvider).email),
         posts: posts,
       )
     );
