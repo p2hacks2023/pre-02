@@ -12,9 +12,10 @@ class Post with _$Post {
     required String description,
     required Uri imageUrl,
     required String nickname,
-    List? favoriteArray,
-    DateTime? postDatetime,
-    String? id,
+    required List favoriteArray,
+    required DateTime postDatetime,
+    required String id,
+    required Uri posterIconUrl,
   }) = _Post;
   
   factory Post.fromFirestore(
@@ -36,6 +37,7 @@ class Post with _$Post {
     //_post_datetime = data?['post_datetime'].toDate();
     postDatetime = DateTime.now();
     debugPrint("fromfirestore");
+    Uri posterIconUrl = Uri.parse(data['poster_icon']);
 
     return Post(
       nickname: nickname,
@@ -45,6 +47,7 @@ class Post with _$Post {
       favoriteArray: favorites,
       postDatetime: postDatetime,
       id: snapshot.id,
+      posterIconUrl: posterIconUrl,
     );
   }
   
