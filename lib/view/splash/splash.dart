@@ -15,7 +15,7 @@ class Splash extends StatelessWidget {
       body: Column(
         children: [
           TextButton(
-            child: const Text("ログインに遷移(splash画面なので，実装後はボタン押さなくても自動で遷移"),
+            child: const Text("ログインに遷移(ここはsplash画面なので，実装後はボタン押さなくても自動で遷移"),
             onPressed: () => router.replace('/signin'),
           ),
           Container(width: MediaQuery.of(context).size.width, height: 20, child: Text("↓は開発者用"), color: Colors.cyan,),
@@ -23,25 +23,25 @@ class Splash extends StatelessWidget {
             builder: (context, ref, _) {
               return TextButton(
                 child: const Text("開発者用ログイン"),
-                onPressed: () => ref.read(userViewModelProvider.notifier).setUser(
-                  User(//デバッグ用
-                    nickname: "developer", 
-                    email: "developer@developer.com", 
-                    iconUrl: Uri.parse('https://logos-download.com/wp-content/uploads/2016/09/GitHub_logo.png'), 
-                    introduction: "イントロダクション"
-                  ),
-                ),
+                onPressed: () {
+                 ref.read(userViewModelProvider.notifier).setUser(
+                    User(//デバッグ用
+                      nickname: "developer", 
+                      email: "developer@developer.com", 
+                      iconUrl: Uri.parse('https://logos-download.com/wp-content/uploads/2016/09/GitHub_logo.png'), 
+                      introduction: "イントロダクション"
+                    ),
+                  );
+                  if(CheckHiruYoru.isHiru()) {
+                    router.replace('/hiru');
+                  }else{
+                    router.replace('/yoru');
+                  }
+                }
               );
             }
           ),
-          TextButton(child: const Text("開発者用　昼か夜の画面に遷移します　必ず⇧のボタンを押してから"),onPressed: () {
-            if(CheckHiruYoru.isHiru()) {
-              router.replace('/hiru');
-            }else{
-              router.replace('/yoru');
-            }
-          },),
-          TextButton(child: const Text("firestore test"),onPressed: () => router.push('/test/firestore'),)
+          TextButton(child: const Text("firestore test (上のボタンでログインしてからでお願いします．"),onPressed: () => router.push('/test/firestore'),)
         ],
       ),
     );
