@@ -31,7 +31,7 @@ class PostsRepository {
     throw Exception("no post idは：$id");
   }
 
-  Future<void> addPost(PrePost post, File file, String nickname) async{
+  Future<void> addPost(PrePost post, File file, String nickname, String iconUrl) async{
     String imagePath;
     DateTime now = DateTime.now();
     imagePath = "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}_$nickname";
@@ -50,6 +50,7 @@ class PostsRepository {
         'favorite_array': [],
         'post_datetime': FieldValue.serverTimestamp(),
         'nickname': nickname,
+        'poster_icon': iconUrl,
       });
     }on Exception{
       throw Exception;

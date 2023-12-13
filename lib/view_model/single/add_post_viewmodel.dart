@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/model/prePost.dart';
 import 'package:firebase_tutorial/state/add_post/add_post_state.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
@@ -30,6 +29,7 @@ class AddPostViewModel extends _$AddPostViewModel {
       ),
       ref.watch(addPostViewModelProvider).file!,
       ref.watch(userViewModelProvider).nickname,
+      ref.watch(userViewModelProvider).iconUrl.toString(),
     );
   }
   
