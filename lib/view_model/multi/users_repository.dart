@@ -67,4 +67,18 @@ class UsersRepository{
       throw Exception("自己紹介の変更に失敗しました");
     }
   }
+  
+  //プロフィール画面
+  Future<User> getUserFromMailaddress(String email) async {
+    try{
+      late User user;
+      await userRef.where('email', isEqualTo: email).get()
+      .then((querySnapshot) {
+        user = User.fromFirestore(querySnapshot.docs[0]);
+      });
+      return user;
+    }on Exception{
+      throw Exception("ユーザーの取得に失敗しました");
+    }
+  }
 }
