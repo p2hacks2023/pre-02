@@ -1,4 +1,6 @@
+import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/state/google_sign_in_state.dart';
+import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:firebase_tutorial/view_model/single/google_sign_in_view_model.dart';
@@ -23,12 +25,15 @@ class SignUp extends ConsumerWidget {
               onChanged: (value) => nickname = value,
             ),
           ),
-          Text(ref.watch(googleSignInViewModelProvider).email),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               GoogleSignInState googleSignInState = ref.watch(googleSignInViewModelProvider);
-              debugPrint(ref.watch(googleSignInViewModelProvider).email);
-              ref.read(userViewModelProvider.notifier).registerUser(googleSignInState.email, googleSignInState.iconUrl.toString(), "", nickname);
+              await ref.read(userViewModelProvider.notifier).registerUser(googleSignInState.email, googleSignInState.iconUrl.toString(), "", nickname);
+              if(CheckHiruYoru.isHiru()) {
+                router.replace('/hiru');
+              }else{
+                router.replace('/yoru');
+              }
             }, 
             child: const Text("サインアップ"),
           )

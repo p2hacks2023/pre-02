@@ -1,5 +1,6 @@
 import 'package:firebase_tutorial/model/user.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,8 +19,11 @@ class UserViewModel extends _$UserViewModel {
   }
 
   Future<void> registerUser(String email, String url, String introduction, String nickname)async{
+    
     UsersRepository usersRepository = UsersRepository();
     await usersRepository.register(email, url, introduction, nickname);
+    debugPrint("---------- logined ---------");
+    debugPrint("email: $email, icon_url: $url, introduction: $introduction, nickname: $nickname");
     state = User(
       email: email,
       iconUrl: Uri.parse(url),
@@ -29,6 +33,8 @@ class UserViewModel extends _$UserViewModel {
   }
 
   void setUser(User user){
+    debugPrint("---------- logined ---------");
+    debugPrint("email: ${user.email}, icon_url: ${user.iconUrl}, introduction: ${user.introduction}, nickname: ${user.nickname}");
     state = user;
   }
   
