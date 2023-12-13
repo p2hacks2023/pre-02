@@ -8,7 +8,7 @@ part 'post.freezed.dart';
 class Post with _$Post {
 
   factory Post({
-    required String poster,
+    required String poster,//メールアドレスが入ってる
     required String description,
     required Uri imageUrl,
     required String nickname,
