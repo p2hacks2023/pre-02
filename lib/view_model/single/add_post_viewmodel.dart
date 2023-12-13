@@ -34,6 +34,7 @@ class AddPostViewModel extends _$AddPostViewModel {
       ),
       ref.watch(addPostViewModelProvider).file!,
       ref.watch(userViewModelProvider).nickname,
+      ref.watch(userViewModelProvider).iconUrl.toString(),
     );
   }
   

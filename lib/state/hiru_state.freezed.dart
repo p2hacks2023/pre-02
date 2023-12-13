@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HiruState {
   List<Post> get posts => throw _privateConstructorUsedError;
+  List<Post> get postsWithoutMe => throw _privateConstructorUsedError;
+  List<Post> get postsOnlyMe => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HiruStateCopyWith<HiruState> get copyWith =>
@@ -28,7 +30,8 @@ abstract class $HiruStateCopyWith<$Res> {
   factory $HiruStateCopyWith(HiruState value, $Res Function(HiruState) then) =
       _$HiruStateCopyWithImpl<$Res, HiruState>;
   @useResult
-  $Res call({List<Post> posts});
+  $Res call(
+      {List<Post> posts, List<Post> postsWithoutMe, List<Post> postsOnlyMe});
 }
 
 /// @nodoc
@@ -45,11 +48,21 @@ class _$HiruStateCopyWithImpl<$Res, $Val extends HiruState>
   @override
   $Res call({
     Object? posts = null,
+    Object? postsWithoutMe = null,
+    Object? postsOnlyMe = null,
   }) {
     return _then(_value.copyWith(
       posts: null == posts
           ? _value.posts
           : posts // ignore: cast_nullable_to_non_nullable
+              as List<Post>,
+      postsWithoutMe: null == postsWithoutMe
+          ? _value.postsWithoutMe
+          : postsWithoutMe // ignore: cast_nullable_to_non_nullable
+              as List<Post>,
+      postsOnlyMe: null == postsOnlyMe
+          ? _value.postsOnlyMe
+          : postsOnlyMe // ignore: cast_nullable_to_non_nullable
               as List<Post>,
     ) as $Val);
   }
@@ -63,7 +76,8 @@ abstract class _$$HiruStateImplCopyWith<$Res>
       __$$HiruStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Post> posts});
+  $Res call(
+      {List<Post> posts, List<Post> postsWithoutMe, List<Post> postsOnlyMe});
 }
 
 /// @nodoc
@@ -78,11 +92,21 @@ class __$$HiruStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? posts = null,
+    Object? postsWithoutMe = null,
+    Object? postsOnlyMe = null,
   }) {
     return _then(_$HiruStateImpl(
       posts: null == posts
           ? _value._posts
           : posts // ignore: cast_nullable_to_non_nullable
+              as List<Post>,
+      postsWithoutMe: null == postsWithoutMe
+          ? _value._postsWithoutMe
+          : postsWithoutMe // ignore: cast_nullable_to_non_nullable
+              as List<Post>,
+      postsOnlyMe: null == postsOnlyMe
+          ? _value._postsOnlyMe
+          : postsOnlyMe // ignore: cast_nullable_to_non_nullable
               as List<Post>,
     ));
   }
@@ -91,7 +115,13 @@ class __$$HiruStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HiruStateImpl implements _HiruState {
-  _$HiruStateImpl({required final List<Post> posts}) : _posts = posts;
+  _$HiruStateImpl(
+      {required final List<Post> posts,
+      required final List<Post> postsWithoutMe,
+      required final List<Post> postsOnlyMe})
+      : _posts = posts,
+        _postsWithoutMe = postsWithoutMe,
+        _postsOnlyMe = postsOnlyMe;
 
   final List<Post> _posts;
   @override
@@ -101,9 +131,25 @@ class _$HiruStateImpl implements _HiruState {
     return EqualUnmodifiableListView(_posts);
   }
 
+  final List<Post> _postsWithoutMe;
+  @override
+  List<Post> get postsWithoutMe {
+    if (_postsWithoutMe is EqualUnmodifiableListView) return _postsWithoutMe;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postsWithoutMe);
+  }
+
+  final List<Post> _postsOnlyMe;
+  @override
+  List<Post> get postsOnlyMe {
+    if (_postsOnlyMe is EqualUnmodifiableListView) return _postsOnlyMe;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postsOnlyMe);
+  }
+
   @override
   String toString() {
-    return 'HiruState(posts: $posts)';
+    return 'HiruState(posts: $posts, postsWithoutMe: $postsWithoutMe, postsOnlyMe: $postsOnlyMe)';
   }
 
   @override
@@ -111,12 +157,19 @@ class _$HiruStateImpl implements _HiruState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HiruStateImpl &&
-            const DeepCollectionEquality().equals(other._posts, _posts));
+            const DeepCollectionEquality().equals(other._posts, _posts) &&
+            const DeepCollectionEquality()
+                .equals(other._postsWithoutMe, _postsWithoutMe) &&
+            const DeepCollectionEquality()
+                .equals(other._postsOnlyMe, _postsOnlyMe));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_posts));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_posts),
+      const DeepCollectionEquality().hash(_postsWithoutMe),
+      const DeepCollectionEquality().hash(_postsOnlyMe));
 
   @JsonKey(ignore: true)
   @override
@@ -126,10 +179,17 @@ class _$HiruStateImpl implements _HiruState {
 }
 
 abstract class _HiruState implements HiruState {
-  factory _HiruState({required final List<Post> posts}) = _$HiruStateImpl;
+  factory _HiruState(
+      {required final List<Post> posts,
+      required final List<Post> postsWithoutMe,
+      required final List<Post> postsOnlyMe}) = _$HiruStateImpl;
 
   @override
   List<Post> get posts;
+  @override
+  List<Post> get postsWithoutMe;
+  @override
+  List<Post> get postsOnlyMe;
   @override
   @JsonKey(ignore: true)
   _$$HiruStateImplCopyWith<_$HiruStateImpl> get copyWith =>

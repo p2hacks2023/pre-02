@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/model/prePost.dart';
+import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
 
 class PostsRepository {
   final CollectionReference _postsRef = FirebaseFirestore.instance.collection('posts');
@@ -24,6 +26,31 @@ class PostsRepository {
     return posts;
   }
   
+  //ログインしてるユーザー以外の投稿を見る
+  Future<List<Post>> getAllPostsWithoutMe(String email) async {
+    List<Post> posts = [];
+    await _postsRef.where('poster', isNotEqualTo: email).orderBy('poster').orderBy('post_datetime', descending: true).get().then(
+      (QuerySnapshot<Object?> querySnapshot) {
+        for(var docSnapshot in querySnapshot.docs) {
+          posts.add(Post.fromFirestore(docSnapshot));
+        }
+      }
+    );
+    return posts;
+  }
+  
+  Future<List<Post>> getAllPostsOnlyMe(String email) async{
+    List<Post> posts = [];
+    await _postsRef.where('poster', isEqualTo: email).orderBy('post_datetime', descending: true).get().then(
+      (QuerySnapshot<Object?> querySnapshot) {
+        for(var docSnapshot in querySnapshot.docs) {
+          posts.add(Post.fromFirestore(docSnapshot));
+        }
+      }
+    );
+    return posts;
+  }
+  
   Future<Post> getPost(String id) async {
     var post = await _postsRef.doc(id).get();
     if (post.exists) return Post.fromFirestore(post);
@@ -31,7 +58,7 @@ class PostsRepository {
     throw Exception("no post idは：$id");
   }
 
-  Future<void> addPost(PrePost post, File file, String nickname) async{
+  Future<void> addPost(PrePost post, File file, String nickname, String iconUrl) async{
     String imagePath;
     DateTime now = DateTime.now();
     imagePath = "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}_$nickname";
@@ -50,9 +77,32 @@ class PostsRepository {
         'favorite_array': [],
         'post_datetime': FieldValue.serverTimestamp(),
         'nickname': nickname,
+        'poster_icon': iconUrl,
       });
     }on Exception{
       throw Exception;
+    }
+  }
+  //いいね追加
+  Future<void> addIine(String postId, String email) async {
+    UsersRepository usersRepository = UsersRepository();
+    try{
+      await _postsRef.doc(postId).update({
+        'favorite_array': FieldValue.arrayUnion([email]),
+      });
+    }on Exception{
+      throw Exception("いいねの追加に失敗");
+    }
+  }
+  
+  //いいねの削除
+  Future<void> removeIine(String postId, String email) async {
+    try{
+      await _postsRef.doc(postId).update({
+        'favorite_array': FieldValue.arrayRemove([email]),
+      });
+    }on Exception{
+      throw Exception("いいねの削除に失敗");
     }
   }
 }
