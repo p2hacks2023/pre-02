@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/model/prePost.dart';
+import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
@@ -80,6 +81,28 @@ class PostsRepository {
       });
     }on Exception{
       throw Exception;
+    }
+  }
+  //いいね追加
+  Future<void> addIine(String postId, String email) async {
+    UsersRepository usersRepository = UsersRepository();
+    try{
+      await _postsRef.doc(postId).update({
+        'favorite_array': FieldValue.arrayUnion([email]),
+      });
+    }on Exception{
+      throw Exception("いいねの追加に失敗");
+    }
+  }
+  
+  //いいねの削除
+  Future<void> removeIine(String postId, String email) async {
+    try{
+      await _postsRef.doc(postId).update({
+        'favorite_array': FieldValue.arrayRemove([email]),
+      });
+    }on Exception{
+      throw Exception("いいねの削除に失敗");
     }
   }
 }
