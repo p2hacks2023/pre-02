@@ -17,8 +17,14 @@ final router = RoutemasterDelegate(
       '/signup': (route) {
         return MaterialPage(child: SignUp());
       },
+      '/yoru': (route) {
+        return MaterialPage(child: Yoru());
+      },
       '/post/add': (route) {
         return MaterialPage(child: AddPost());
+      },
+      '/post/add/camera': (route) {
+        return MaterialPage(child: TakePictureScreen());
       },
       '/home': (router) {
         return const MaterialPage(child: Home());

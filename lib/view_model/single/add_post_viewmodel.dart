@@ -1,12 +1,16 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/model/prePost.dart';
 import 'package:firebase_tutorial/state/add_post/add_post_state.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 
 part 'add_post_viewmodel.g.dart';
 
@@ -36,6 +40,15 @@ class AddPostViewModel extends _$AddPostViewModel {
   void changeIsUploading(bool isUploading){
     state = state.copyWith(uploading: isUploading);
   }
+
+  Future<void>Camera()async{
+    WidgetsFlutterBinding.ensureInitialized();
+    final camera = await availableCameras();
+    final firstCamera = camera.first;
+    state = state.copyWith(camera: firstCamera);
+    print(firstCamera);
+  }
+
 
   /*
   void addUser(String email, String url, String introduction, String name, String nickname){

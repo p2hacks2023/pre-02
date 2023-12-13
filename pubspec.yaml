@@ -32,6 +32,11 @@ dependencies:
   image_picker: ^1.0.4
   riverpod_lint: ^2.3.7
 
+#カメラ関係
+  camera: ^0.9.4+19
+  path_provider: ^2.0.9
+  path: ^1.8.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

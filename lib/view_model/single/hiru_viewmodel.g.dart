@@ -6,7 +6,7 @@ part of 'hiru_viewmodel.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hiruViewModelHash() => r'dfad7fe14d94f9ed6ef3a894c519eecffefb2723';
+String _$hiruViewModelHash() => r'cd6fb2f5cae1db31ea2e9374d6733d7cdfa168d3';
 
 /// See also [HiruViewModel].
 @ProviderFor(HiruViewModel)

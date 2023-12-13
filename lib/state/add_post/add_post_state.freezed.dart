@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AddPostState {
   File? get file => throw _privateConstructorUsedError;
   bool get uploading => throw _privateConstructorUsedError;
+  CameraDescription? get camera => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddPostStateCopyWith<AddPostState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $AddPostStateCopyWith<$Res> {
           AddPostState value, $Res Function(AddPostState) then) =
       _$AddPostStateCopyWithImpl<$Res, AddPostState>;
   @useResult
-  $Res call({File? file, bool uploading});
+  $Res call({File? file, bool uploading, CameraDescription? camera});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$AddPostStateCopyWithImpl<$Res, $Val extends AddPostState>
   $Res call({
     Object? file = freezed,
     Object? uploading = null,
+    Object? camera = freezed,
   }) {
     return _then(_value.copyWith(
       file: freezed == file
@@ -58,6 +60,10 @@ class _$AddPostStateCopyWithImpl<$Res, $Val extends AddPostState>
           ? _value.uploading
           : uploading // ignore: cast_nullable_to_non_nullable
               as bool,
+      camera: freezed == camera
+          ? _value.camera
+          : camera // ignore: cast_nullable_to_non_nullable
+              as CameraDescription?,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$AddPostStateImplCopyWith<$Res>
       __$$AddPostStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({File? file, bool uploading});
+  $Res call({File? file, bool uploading, CameraDescription? camera});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$AddPostStateImplCopyWithImpl<$Res>
   $Res call({
     Object? file = freezed,
     Object? uploading = null,
+    Object? camera = freezed,
   }) {
     return _then(_$AddPostStateImpl(
       file: freezed == file
@@ -96,6 +103,10 @@ class __$$AddPostStateImplCopyWithImpl<$Res>
           ? _value.uploading
           : uploading // ignore: cast_nullable_to_non_nullable
               as bool,
+      camera: freezed == camera
+          ? _value.camera
+          : camera // ignore: cast_nullable_to_non_nullable
+              as CameraDescription?,
     ));
   }
 }
@@ -103,17 +114,19 @@ class __$$AddPostStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddPostStateImpl implements _AddPostState {
-  _$AddPostStateImpl({this.file, this.uploading = false});
+  _$AddPostStateImpl({this.file, this.uploading = false, this.camera});
 
   @override
   final File? file;
   @override
   @JsonKey()
   final bool uploading;
+  @override
+  final CameraDescription? camera;
 
   @override
   String toString() {
-    return 'AddPostState(file: $file, uploading: $uploading)';
+    return 'AddPostState(file: $file, uploading: $uploading, camera: $camera)';
   }
 
   @override
@@ -123,11 +136,12 @@ class _$AddPostStateImpl implements _AddPostState {
             other is _$AddPostStateImpl &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.uploading, uploading) ||
-                other.uploading == uploading));
+                other.uploading == uploading) &&
+            (identical(other.camera, camera) || other.camera == camera));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, file, uploading);
+  int get hashCode => Object.hash(runtimeType, file, uploading, camera);
 
   @JsonKey(ignore: true)
   @override
@@ -137,13 +151,17 @@ class _$AddPostStateImpl implements _AddPostState {
 }
 
 abstract class _AddPostState implements AddPostState {
-  factory _AddPostState({final File? file, final bool uploading}) =
-      _$AddPostStateImpl;
+  factory _AddPostState(
+      {final File? file,
+      final bool uploading,
+      final CameraDescription? camera}) = _$AddPostStateImpl;
 
   @override
   File? get file;
   @override
   bool get uploading;
+  @override
+  CameraDescription? get camera;
   @override
   @JsonKey(ignore: true)
   _$$AddPostStateImplCopyWith<_$AddPostStateImpl> get copyWith =>

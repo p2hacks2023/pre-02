@@ -1,6 +1,7 @@
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
+import 'package:firebase_tutorial/view_model/single/add_post_viewmodel.dart';
 import 'package:firebase_tutorial/view_model/single/google_sign_in_view_model.dart';
 import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                     }
                     if(CheckHiruYoru.isYoru()) router.replace('/yoru');//replaceだと，遷移後戻れなくなる．
                   },),
-                  if(!existed) TextButton(
+                  TextButton(
                     child: const Text("ニックネームを設定する"),
                     onPressed: () {
                       ref.watch(googleSignInViewModelProvider);
@@ -60,7 +61,10 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   )
                 ],
               ),
-              TextButton(child: const Text("firestore test"),onPressed: () => router.push('/test/firestore'),)
+              TextButton(child: const Text("firestore test"),onPressed: () => router.push('/test/firestore'),),
+
+              
+                         
             ],
           );
         }
