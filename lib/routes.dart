@@ -32,7 +32,7 @@ final router = RoutemasterDelegate(
       },
       //テスト系
       '/test/firestore': (router) {
-        return const MaterialPage(child: FireStore());
+        return MaterialPage(child: FireStore());
       },
       '/test/firestore/post/add': (route) {
         return MaterialPage(child: AddPost());
