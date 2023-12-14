@@ -85,7 +85,7 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
             .isExisted(googleSignInAccount!.email.toString())) {
           //すでにユーザーが存在したら
           await usersRepository.signin(ref);
-          if (CheckHiruYoru.isHiru()) {
+          if(CheckHiruYoru.isHiru) {
             router.replace('/hiru');
           } else {
             router.replace('/yoru');
