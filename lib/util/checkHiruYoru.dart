@@ -1,5 +1,5 @@
 //昼か夜かの判定
-class CheckHiruYoru{
+class CheckHiruYoru {
   static bool isHiru() {
     return false;
   }

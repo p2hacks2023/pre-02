@@ -9,30 +9,30 @@ import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
 
 final router = RoutemasterDelegate(
-  routesBuilder: (_) => RouteMap(
-    routes: {
-      '/': (route) {
-        return const MaterialPage(child: GoogleAuthSignin());
-      },
-      '/signup': (route) {
-        return MaterialPage(child: SignUp());
-      },
-      '/post/add': (route) {
-        return MaterialPage(child: AddPost());
-      },
-      '/home': (router) {
-        return const MaterialPage(child: Home());
-      },
-      '/hiru': (router) {
-        return const MaterialPage(child: Hiru());
-      },
-      //テスト系
-      '/test/firestore': (router) {
-        return const MaterialPage(child: FireStore());
-      },
-      '/test/firestore/post/add': (route) {
-        return MaterialPage(child: AddPost());
-      },
-    }
-  )
-);
+    routesBuilder: (_) => RouteMap(routes: {
+          '/': (route) {
+            return const MaterialPage(child: GoogleAuthSignin());
+          },
+          '/signup': (route) {
+            return MaterialPage(child: SignUp());
+          },
+          '/post/add': (route) {
+            return MaterialPage(child: AddPost());
+          },
+          '/home': (router) {
+            return const MaterialPage(child: Home());
+          },
+          '/hiru': (router) {
+            return const MaterialPage(child: Hiru());
+          },
+          '/yoru': (router) {
+            return MaterialPage(child: Yoru());
+          },
+          //テスト系
+          '/test/firestore': (router) {
+            return const MaterialPage(child: FireStore());
+          },
+          '/test/firestore/post/add': (route) {
+            return MaterialPage(child: AddPost());
+          },
+        }));
