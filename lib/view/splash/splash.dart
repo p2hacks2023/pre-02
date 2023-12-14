@@ -33,7 +33,7 @@ class Splash extends StatelessWidget {
                     ),
                   );
                   if(CheckHiruYoru.isHiru()) {
-                    router.replace('/hiru');
+                    router.push('/hiru');
                   }else{
                     router.replace('/yoru');
                   }
@@ -41,9 +41,31 @@ class Splash extends StatelessWidget {
               );
             }
           ),
-          TextButton(child: const Text("firestore test (上のボタンでログインしてからでお願いします．"),onPressed: () => router.push('/test/firestore'),)
         ],
       ),
     );
   }
 }
+
+/*
+class Iine extends StatefulWidget {
+  const Iine({super.key});
+
+  @override
+  State<Iine> createState() => _IineState();
+}
+
+class _IineState extends State<Iine> {
+  bool isIine = false;
+  @override
+  Widget build(BuildContext context) {
+    Color color ;
+    if (isIine) color = Colors.red;
+    else color = Colors.black12;
+    return IconButton(
+      onPressed: () => setState(() {
+      isIine = !isIine;
+    }), 
+    icon: Icon(Icons.favorite, color:color));
+  }
+}*/
