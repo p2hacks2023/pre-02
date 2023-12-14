@@ -29,7 +29,7 @@ class SignUp extends ConsumerWidget {
             onPressed: () async {
               GoogleSignInState googleSignInState = ref.watch(googleSignInViewModelProvider);
               await ref.read(userViewModelProvider.notifier).registerUser(googleSignInState.email, googleSignInState.iconUrl.toString(), "", nickname);
-              if(CheckHiruYoru.isHiru()) {
+              if(CheckHiruYoru.isHiru) {
                 router.replace('/hiru');
               }else{
                 router.replace('/yoru');

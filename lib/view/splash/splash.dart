@@ -32,7 +32,7 @@ class Splash extends StatelessWidget {
                       introduction: "イントロダクション"
                     ),
                   );
-                  if(CheckHiruYoru.isHiru()) {
+                  if(CheckHiruYoru.isHiru) {
                     router.push('/hiru');
                   }else{
                     router.replace('/yoru');
