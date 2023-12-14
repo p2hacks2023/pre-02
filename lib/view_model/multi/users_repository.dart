@@ -67,6 +67,32 @@ class UsersRepository{
       throw Exception("自己紹介の変更に失敗しました");
     }
   }
+
+  //ニックネームの編集用
+  Future<void> changeNickname(WidgetRef ref, String nickname) async {
+    CollectionReference postRef = FirebaseFirestore.instance.collection('posts');
+    String id = "";
+    try{
+      await userRef.where('email', isEqualTo: ref.watch(googleSignInViewModelProvider).email).get()
+      .then((querySnapshot) {
+        id = querySnapshot.docs[0].id;
+      });
+      await userRef.doc(id).update({
+        'nickname': nickname,
+      });
+      List<String> idsToUpdate = [];
+      await postRef.where('poster', isEqualTo: ref.watch(googleSignInViewModelProvider).email).get()
+      .then((querySnapshot) {
+        for (var element in querySnapshot.docs) {idsToUpdate.add(element.id);}
+      });
+      // ignore: avoid_function_literals_in_foreach_calls
+      idsToUpdate.forEach((String element) async { await postRef.doc(element).update({
+        'nickname': nickname,
+      }); });
+    }on Exception{
+      throw Exception("ニックネームの変更に失敗しました．");
+    }
+  }
   
   //プロフィール画面
   Future<User> getUserFromMailaddress(String email) async {
