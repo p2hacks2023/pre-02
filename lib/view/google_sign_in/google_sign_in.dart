@@ -94,6 +94,7 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
             router.replace('/yoru');
           }
         } else {
+          await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
           router.replace('/signup');
         }
       }

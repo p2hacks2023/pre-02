@@ -5,6 +5,7 @@ import 'package:firebase_tutorial/view/google_sign_in/signup.dart';
 import 'package:firebase_tutorial/view/home.dart';
 import 'package:firebase_tutorial/view/post/add_post.dart';
 import 'package:firebase_tutorial/view/google_sign_in/google_sign_in.dart';
+import 'package:firebase_tutorial/view/profile/profile.dart';
 import 'package:firebase_tutorial/view/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
@@ -39,4 +40,8 @@ final router = RoutemasterDelegate(
           '/test/firestore/post/add': (route) {
             return MaterialPage(child: AddPost());
           },
-        }));
+          '/profile': (route) {
+            return MaterialPage(child: Profile());
+          },
+  })
+);

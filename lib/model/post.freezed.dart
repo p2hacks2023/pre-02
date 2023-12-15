@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Post {
-  String get poster => throw _privateConstructorUsedError;
+  String get poster => throw _privateConstructorUsedError; //メールアドレスが入ってる
   String get description => throw _privateConstructorUsedError;
   Uri get imageUrl => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
@@ -194,6 +194,7 @@ class _$PostImpl implements _Post {
 
   @override
   final String poster;
+//メールアドレスが入ってる
   @override
   final String description;
   @override
@@ -273,7 +274,7 @@ abstract class _Post implements Post {
 
   @override
   String get poster;
-  @override
+  @override //メールアドレスが入ってる
   String get description;
   @override
   Uri get imageUrl;

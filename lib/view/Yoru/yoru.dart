@@ -1,4 +1,5 @@
 import 'package:firebase_tutorial/view/hiru_yoru_base.dart';
+import 'package:firebase_tutorial/view/post/add_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,7 +13,7 @@ class Yoru extends ConsumerWidget {
       body: HiruYoruBase(
         leftTitle: 'addpost',
         rightTitle: 'Profile',
-        leftWidget: Text("左"),
+        leftWidget: AddPost(),
         rightWidget: Text("右"),
       ),
     );
