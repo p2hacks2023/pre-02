@@ -1,4 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_tutorial/state/hiru_state.dart';
+import 'package:firebase_tutorial/view/hiru_yoru_base.dart';
+import 'package:firebase_tutorial/view/profile/profile.dart';
+import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
+import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,8 +15,17 @@ class Hiru extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     debugPrint("昼ビルド");
     return Scaffold(
-      appBar: AppBar(title: TextButton(child: Text("更新"),onPressed: () async => ref.read(hiruViewModelProvider.notifier).initializePosts(),)),
-      body: ref.watch(hiruViewModelProvider).when(
+      body: HiruYoruBase(
+        leftTitle: "投稿", 
+        rightTitle: "profile", 
+        leftWidget: Text("投稿"), 
+        rightWidget: 
+          Profile(),
+      ),
+    );
+  }
+}
+/*ref.watch(hiruViewModelProvider).when(
         data: (HiruState data) {
           return ListView.builder(
             itemCount: data.posts.length,
@@ -19,7 +33,10 @@ class Hiru extends ConsumerWidget {
               return Column(
                 children: [
                   Text(data.posts[index].nickname),
-                  Image.network(data.posts[index].imageUrl.toString()),
+                  CachedNetworkImage(
+                    imageUrl: data.posts[index].imageUrl.toString(),
+                    progressIndicatorBuilder: (context, url, progress) => Container(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.width * 4/3,),
+                  ),
                   Text(data.posts[index].description),
                 ],
               );
@@ -29,6 +46,4 @@ class Hiru extends ConsumerWidget {
         error: (_,__) => Text("errorが発生"), 
         loading: () => const Text("loading"),
       )
-    );
-  }
-}
+*/
