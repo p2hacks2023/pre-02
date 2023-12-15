@@ -20,82 +20,83 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   late GoogleSignInAuthentication googleSignInAuthentication;
   late GoogleSignInAccount? googleSignInAccount;
-  
+
   UsersRepository usersRepository = UsersRepository();
-  
-  bool logined = false;
-  bool existed = false; //登録済みかどうか
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Padding(
-        padding: const EdgeInsets.only(top: 200),
-        child: Image.network("https://cdn.discordapp.com/attachments/1182963676630753310/1184067727653089321/42_20231212184157.PNG?ex=658aa001&is=65782b01&hm=ce2de4de6d269b8b7b7ef85fd66eea9298eb1443e2d564d4186e13e54ac3ed4f&",height: 250,),
-      ),),
-      body: Consumer(
-        builder: (BuildContext context, WidgetRef ref, _) {
-          return Column(
-            children: [
-              TextButton(onPressed: ()=> signInWithGoogle(ref), child: const Text("おして")),
-              Text(logined.toString()),
-              if(logined) Column(
-                children: [
-                  Text(googleSignInAccount!.displayName.toString()),
-                  Image.network(googleSignInAccount!.photoUrl.toString()),
-                  const Text("loginされてるねえ"),
-                  TextButton(child: const Text("次に進む"),onPressed: () async { 
-                    if(CheckHiruYoru.isHiru()) {
-                      // await ref.read(hiruViewModelProvider.notifier).initializePosts();
-                      // await Future.delayed(Duration(seconds: 5));
-                      router.replace('/hiru');
-                    }
-                    if(CheckHiruYoru.isYoru()) router.replace('/yoru');//replaceだと，遷移後戻れなくなる．
-                  },),
-                  TextButton(
-                    child: const Text("ニックネームを設定する"),
-                    onPressed: () {
-                      ref.watch(googleSignInViewModelProvider);
-                      ref.read(googleSignInViewModelProvider.notifier).setGoogleUser(googleSignInAccount!.email, googleSignInAccount!.photoUrl.toString());
-                      router.push('/signup');
-                    } ,
-                  )
-                ],
+      body: Consumer(builder: (BuildContext context, WidgetRef ref, _) {
+        return Stack(
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/sign.jpg'),
+                  fit: BoxFit.cover,
+                ),
               ),
-              TextButton(child: const Text("firestore test"),onPressed: () => router.push('/test/firestore'),),
-
-              
-                         
-            ],
-          );
-        }
-      ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 230, left: 100),
+              child: Text(
+                'Strorally',
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 50,
+                )
+              )
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 450, left: 80),
+              child: TextButton(
+                style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all<Size>(
+                    Size(250, 80),
+                  ),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 227, 237, 122)),
+                ),
+                child: Text('Googleでサインイン',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 20,
+                    )),
+                onPressed: () {
+                  signInWithGoogle(ref);
+                },
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 
-  void login(){
-    setState(() => logined = true);
-  }
-  
-  void logout() => setState(() => logined = false);
-
   Future signInWithGoogle(WidgetRef ref) async {
     UsersRepository usersRepository = UsersRepository();
-    googleSignInAccount = await googleSignIn.signIn();
-    if(googleSignInAccount != null){
-      googleSignInAuthentication = await googleSignInAccount!.authentication;
-      setState(() => logined = true);
-      ref.read(googleSignInViewModelProvider.notifier).setGoogleUser(googleSignInAccount!.email.toString(), googleSignInAccount!.photoUrl.toString());
-      if(await usersRepository.isExisted(googleSignInAccount!.email.toString())) 
-      { //すでにユーザーが存在したら
-        usersRepository.signin(ref);
-        setState(() {
-          existed = true;
-        });
-
+    try {
+      googleSignInAccount = await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        googleSignInAuthentication = await googleSignInAccount!.authentication;
+        ref.read(googleSignInViewModelProvider.notifier).setGoogleUser(
+            googleSignInAccount!.email.toString(),
+            googleSignInAccount!.photoUrl.toString());
+        if (await usersRepository
+            .isExisted(googleSignInAccount!.email.toString())) {
+          //すでにユーザーが存在したら
+          await usersRepository.signin(ref);
+          if (CheckHiruYoru.isHiru()) {
+            router.replace('/hiru');
+          } else {
+            router.replace('/yoru');
+          }
+        } else {
+          router.replace('/signup');
+        }
       }
-    }else {
-      //ログイン失敗
-      debugPrint("aiueo");
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }
