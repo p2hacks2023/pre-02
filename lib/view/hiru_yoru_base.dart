@@ -7,11 +7,13 @@ class HiruYoruBase extends StatelessWidget {
     required this.rightTitle,
     required this.leftWidget,
     required this.rightWidget,
+    required this.color,
   });
   final String leftTitle;
   final String rightTitle;
   final Widget leftWidget;
   final Widget rightWidget;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,10 @@ class HiruYoruBase extends StatelessWidget {
               ),*/
               title: Text(
                 "demo",
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(
+                  fontSize: 30,
+                color: color,
+                ),
               ),
             ),
             SliverPersistentHeader(
@@ -46,7 +51,7 @@ class HiruYoruBase extends StatelessWidget {
               delegate: _StickyTabBarDelegate(
                   tabBar: TabBar(
                 indicator: BoxDecoration(),
-                labelColor: Colors.black,
+                labelColor: color,
                 dividerColor: Colors.transparent,
                 tabs: [
                   Tab(

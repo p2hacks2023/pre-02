@@ -20,13 +20,13 @@ class AddPost extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text("add post")),
       body: Container(
         color: Color(0xFF190831),
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: 35),
               if(ref.watch(addPostViewModelProvider).file == null)
               DottedBorder(
                 color: Colors.white,
@@ -45,21 +45,34 @@ class AddPost extends ConsumerWidget{
               ),
                 ),
                 if(ref.watch(addPostViewModelProvider).file != null) 
-                Container(
-                  width: 300,
-                  height: 400,
-                  child: Image.file(ref.watch(addPostViewModelProvider).file!)
-                  ),
+                //Container(
+                //  width: 300,
+                //  height: 400,
+                //  child: Image.file(ref.watch(addPostViewModelProvider).file!)
+                //  ),
+                Image.file(width: 300, height: 400,ref.watch(addPostViewModelProvider).file!),
               
-              TextField(
-                style: TextStyle(
-                  color: Colors.white,
-                  backgroundColor: Color(0xFF190831),
+              Row(
+                children: [
+                  SizedBox(width: 30),
+                  Flexible(
+                    child: TextField(
+                      style: TextStyle(
+                        color: Colors.white,
+                        backgroundColor: Color(0xFF190831),
+                        ),
+                      onChanged: (value) => description = value,
+                      decoration: const InputDecoration(
+                        hintText: "add text",
+                        hintStyle: TextStyle(
+                          color:Colors.grey,
+                           ),
+                        contentPadding: EdgeInsets.all(10),
+                      ),
+                    ),
                   ),
-                onChanged: (value) => description = value,
-                decoration: const InputDecoration(
-                  label: Text("テキスト"),
-                ),
+                  SizedBox(width: 30),
+                ],
               ),
               SizedBox(height: 30,),
               
@@ -93,11 +106,12 @@ class AddPost extends ConsumerWidget{
                 ),
                 ],
               ),
-              
+              SizedBox(height: 20),
               
               if(!ref.watch(addPostViewModelProvider).uploading)
-               TextButton(
-                  onPressed: () async{
+              IconButton(
+                iconSize: 45,
+                onPressed: () async{
                     ref.read(addPostViewModelProvider.notifier).changeIsUploading(true); //アップロード中に状態を変更
                     await ref.read(addPostViewModelProvider.notifier).addPost(
                       PrePost(
@@ -106,13 +120,12 @@ class AddPost extends ConsumerWidget{
                       ),
                       ref
                     );
-                    router.pop();
-                  }, 
-                  child: const Text("投稿する")
-                ),
-              
-              
-              
+                    ref.read(addPostViewModelProvider.notifier).changeIsUploading(false);
+                    //router.pop();
+                  },
+               icon: Icon(Icons.send),
+               color: Colors.white,
+               ),
             ],
           ),
         ),

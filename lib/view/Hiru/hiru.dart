@@ -10,7 +10,7 @@ class Hiru extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     debugPrint("昼ビルド");
     return Scaffold(
-      appBar: AppBar(title: TextButton(child: Text("更新"),onPressed: () async => ref.read(hiruViewModelProvider.notifier).initializePosts(),)),
+      //appBar: AppBar(title: TextButton(child: Text("更新"),onPressed: () async => ref.read(hiruViewModelProvider.notifier).initializePosts(),)),
       body: ref.watch(hiruViewModelProvider).when(
         data: (HiruState data) {
           return ListView.builder(
@@ -29,6 +29,7 @@ class Hiru extends ConsumerWidget {
         error: (_,__) => Text("errorが発生"), 
         loading: () => const Text("loading"),
       )
+      
     );
   }
 }

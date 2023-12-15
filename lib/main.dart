@@ -31,7 +31,6 @@ class _MainAppState extends State<MainApp> {
     if(CheckHiruYoru.isYoru()){
       theme = ThemeData(
         canvasColor: const Color(0xFF190831),
-        textTheme: TextTheme(),
         appBarTheme: const AppBarTheme(
           color:Color(0xFF240A4B),
         )
