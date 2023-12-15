@@ -1,4 +1,6 @@
+import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HiruYoruBase extends StatelessWidget {
   const HiruYoruBase({
@@ -22,27 +24,83 @@ class HiruYoruBase extends StatelessWidget {
           return <Widget>[
             SliverAppBar(
               shadowColor: Colors.transparent,
-              pinned: true,
+              //pinned: true,
               floating: true,
-              //collapsedHeight: 56,
-              expandedHeight: 80,
-              elevation: 0,
+              snap: true,
+              expandedHeight: 50,
               backgroundColor: Colors.transparent,
               surfaceTintColor: Colors.transparent,
-              /*
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  'demo',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),*/
-              title: Text(
-                "demo",
-                style: TextStyle(fontSize: 30),
+
+              title: Stack(
+                children: [
+                  Text(
+                    "Strollary",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+
+                      //color: Colors.black,
+
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 3
+                        ..color = Colors.white,
+                    ),
+                  ),
+                  Text(
+                    "Strollary",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.black),
+                    ),
+                    child: Center(
+                        child: Consumer(
+                      builder: (context, ref, _) => Image.network(
+                          ref.watch(userViewModelProvider).iconUrl.toString()),
+                    )
+                        /*Text(
+                        '写真',
+                        style: TextStyle(fontSize: 30),
+                      ),*/
+                        ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Consumer(builder: (context, ref, _) {
+                    return Text(
+                      ref.watch(userViewModelProvider).nickname,
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    );
+                  }),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
               ),
             ),
             SliverPersistentHeader(
               pinned: true,
+              //floating: true,
               delegate: _StickyTabBarDelegate(
                   tabBar: TabBar(
                 indicator: BoxDecoration(),
@@ -50,10 +108,48 @@ class HiruYoruBase extends StatelessWidget {
                 dividerColor: Colors.transparent,
                 tabs: [
                   Tab(
-                    text: leftTitle,
+                    child: Stack(
+                      children: [
+                        /*
+                        Text(
+                          leftTitle,
+                          style: TextStyle(
+                            fontSize: 18,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 3
+                              ..color = Colors.white,
+                          ),
+                        ),
+                        */
+                        Text(
+                          leftTitle,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
                   Tab(
-                    text: rightTitle,
+                    child: Stack(
+                      children: [
+                        /*
+                        Text(
+                          rightTitle,
+                          style: TextStyle(
+                            fontSize: 18,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 3
+                              ..color = Colors.white,
+                          ),
+                        ),
+                        */
+                        Text(
+                          rightTitle,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               )),
