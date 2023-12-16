@@ -19,15 +19,13 @@ class Post with _$Post {
 
   factory Post.fromFirestore(
     DocumentSnapshot<Object?> snapshot,
-  ) {
+  ){
     final data = snapshot.data() as Map<String, dynamic>;
     String poster = data['poster'];
     if (poster == '') throw Exception("invalid poster");
     String description = data['description'];
     Uri url = Uri.parse(data['image_url']);
     String nickname = data['nickname'];
-
-    //TODO favoriteの実装
     List favorites = data['favorite_array'] as List;
 
     Timestamp postTimestamp = data['post_datetime'];
@@ -48,15 +46,4 @@ class Post with _$Post {
       posterIconUrl: posterIconUrl,
     );
   }
-
-  /*
-  Map<String, dynamic> toFirestore() {
-    return {
-      if (poster != null) "poster": poster,
-      if (description != null) "description": description,
-      if (favorite_array != null) "favorite_array": favorite_array,
-      if (image_url != null) "capital": image_url,
-      if (post_datetime != null) "population": post_datetime,
-    };
-  }*/
 }

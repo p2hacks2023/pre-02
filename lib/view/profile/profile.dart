@@ -1,13 +1,7 @@
-import 'package:firebase_tutorial/model/user.dart';
-import 'package:firebase_tutorial/routes.dart';
-import 'package:firebase_tutorial/state/hiru_state.dart';
 import 'package:firebase_tutorial/state/profile_state.dart';
 import 'package:firebase_tutorial/view/Hiru/hiru.dart';
-import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
-import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
-import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,7 +24,7 @@ class Profile extends ConsumerWidget {
 
               title: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Image.network(
@@ -49,9 +43,6 @@ class Profile extends ConsumerWidget {
                   itemCount: data.posts.length,
                   itemBuilder: (context, index) => Column(
                     children: <Widget>[
-                      /*SizedBox(
-                                height: 10,
-                              ),*/
                       if (index == 0)
                         Center(
                           child: Consumer(
@@ -63,33 +54,33 @@ class Profile extends ConsumerWidget {
                             ),
                           ),
                         ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       if (index == 0)
                         Consumer(builder: (context, ref, _) {
                           return Text(
                             data.posts[index].nickname,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           );
                         }),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       if(index == 0) Text(
                           data.user!.introduction,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                         height: 20,
                       ),
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Column(
                           children: [
                             AspectRatio(
@@ -141,21 +132,21 @@ class Profile extends ConsumerWidget {
                                     Text(
                                         '${data.posts[index].postDatetime.hour.toString()}:'),
                                     Text(
-                                        '${data.posts[index].postDatetime.minute.toString()}'),
+                                        data.posts[index].postDatetime.minute.toString()),
                                   ],
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Text(
                               data.posts[index].description,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 15,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 50,
                             ),
                           ],

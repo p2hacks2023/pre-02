@@ -2,7 +2,6 @@ import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/state/hiru_state.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view/hiru_yoru_base.dart';
-import 'package:firebase_tutorial/view/profile/profile.dart';
 import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
@@ -10,7 +9,6 @@ import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:firebase_tutorial/view_model/single/iine_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 class Hiru extends ConsumerWidget {
   const Hiru({
@@ -21,14 +19,6 @@ class Hiru extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     debugPrint("昼ビルド");
     return Scaffold(
-      /*
-      appBar: AppBar(
-          title: TextButton(
-        child: Text("更新"),
-        onPressed: () async =>
-            ref.read(hiruViewModelProvider.notifier).initializePosts(),
-      )),
-      */
       backgroundColor: Colors.white,
       body: HiruYoruBase(
         leftTitle: 'Time Line',
@@ -41,12 +31,12 @@ class Hiru extends ConsumerWidget {
                   cacheExtent: 80,
                   itemBuilder: (context, index) {
                     return Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
                           ClipRRect(
                             //投稿写真の上の部分
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(15),
                                 topRight: Radius.circular(15)),
                             child: Container(
@@ -56,12 +46,12 @@ class Hiru extends ConsumerWidget {
                               //Color.fromRGBO(249, 243, 217, 1),
                               child: Column(
                                 children: [
-                                 SizedBox(
+                                 const SizedBox(
                                    height: 5,
                                  ),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          shape: CircleBorder(),
+                                          shape: const CircleBorder(),
                                           backgroundColor: Colors.transparent,
                                         ),
                                         onPressed: () {
@@ -82,7 +72,7 @@ class Hiru extends ConsumerWidget {
                                   Text(
                                     //投稿した人の名前
                                     data.postsWithoutMe[index].nickname,
-                                    style: TextStyle(fontSize: 12),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ],
                               ),
@@ -140,21 +130,21 @@ class Hiru extends ConsumerWidget {
                                   Text(
                                       '${data.postsWithoutMe[index].postDatetime.hour.toString()}:'),
                                   Text(
-                                      '${data.postsWithoutMe[index].postDatetime.minute.toString()}'),
+                                      data.postsWithoutMe[index].postDatetime.minute.toString()),
                                 ],
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             data.postsWithoutMe[index].description,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 15,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 50,
                           ),
                         ],
@@ -163,7 +153,7 @@ class Hiru extends ConsumerWidget {
                   },
                 );
               },
-              error: (_, __) => Text("errorが発生"),
+              error: (_, __) => const Text("errorが発生"),
               loading: () => const Text("loading"),
             ),
         //Profileの中身↓
@@ -173,7 +163,7 @@ class Hiru extends ConsumerWidget {
                   itemCount: data.postsOnlyMe.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
                           AspectRatio(
@@ -228,21 +218,21 @@ class Hiru extends ConsumerWidget {
                                   Text(
                                       '${data.postsOnlyMe[index].postDatetime.hour.toString()}:'),
                                   Text(
-                                      '${data.postsOnlyMe[index].postDatetime.minute.toString()}'),
+                                      data.postsOnlyMe[index].postDatetime.minute.toString()),
                                 ],
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             data.postsOnlyMe[index].description,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 15,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 50,
                           ),
                         ],
@@ -251,7 +241,7 @@ class Hiru extends ConsumerWidget {
                   },
                 );
               },
-              error: (_, __) => Text("errorが発生"),
+              error: (_, __) => const Text("errorが発生"),
               loading: () => const Text("loading"),
             ),
         color: Colors.black,
@@ -289,15 +279,16 @@ class _IineState extends State<Iine> {
   List user2 = [];
   _IineState(List users2){
     user2 = List.of(users2);
-    users2.forEach((element) {debugPrint("init"+ element);});
+    users2.forEach((element) {debugPrint("init$element");});
   }
   @override
   Widget build(BuildContext context) {
     Color color;
-    if (widget.isFavorite)
+    if (widget.isFavorite){
       color = Colors.yellow;
-    else
+    }else{
       color = Colors.white;
+    }
     return Row(
       children: [
         Stack(
@@ -306,7 +297,7 @@ class _IineState extends State<Iine> {
                 onPressed: () {
                   debugPrint("うえ");
                 },
-                icon: Icon(Icons.mode_night),
+                icon: const Icon(Icons.mode_night),
                 color: color,
                 iconSize: 32),
             Consumer(builder: (context, ref, _) {
@@ -329,7 +320,7 @@ class _IineState extends State<Iine> {
                     widget.isFavorite = !widget.isFavorite;
                   });
                 },
-                icon: Icon(Icons.mode_night_outlined),
+                icon: const Icon(Icons.mode_night_outlined),
                 iconSize: 32,
               );
             })

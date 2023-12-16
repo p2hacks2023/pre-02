@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_tutorial/model/prePost.dart';
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
@@ -19,15 +18,15 @@ class AddPost extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Container(
-        color: Color(0xFF190831),
+        color: const Color(0xFF190831),
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 35),
+              const SizedBox(height: 35),
               if (ref.watch(addPostViewModelProvider).file != null)
                 Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   child: AspectRatio(
                       aspectRatio: 3 / 4,
                       child: ClipRRect(
@@ -39,21 +38,21 @@ class AddPost extends ConsumerWidget {
                 )
               else
                 Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   child: DottedBorder(
                     borderType: BorderType.RRect,
-                    radius: Radius.circular(120),
+                    radius: const Radius.circular(120),
                     color: Colors.white,
-                    dashPattern: [
+                    dashPattern: const [
                       15.0, // 点線を引く長さ
                       6.0 //点線の溝の長さ
                     ],
                       child: Container(
-                        child: AspectRatio(
-                          aspectRatio: 3 / 4,
+                        child: const AspectRatio(
+                         aspectRatio: 3 / 4,
                         ),
                         decoration: BoxDecoration(
-                          color: Color(0xFF190831).withOpacity(0),
+                          color: const Color(0xFF190831).withOpacity(0),
                           borderRadius: BorderRadius.circular(120),
                         ),
                       ),
@@ -61,10 +60,10 @@ class AddPost extends ConsumerWidget {
                 ),
               Row(
                 children: [
-                  SizedBox(width: 30),
+                  const SizedBox(width: 30),
                   Flexible(
                     child: TextField(
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         backgroundColor: Color(0xFF190831),
                       ),
@@ -78,10 +77,10 @@ class AddPost extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 30),
+                 const SizedBox(width: 30),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -100,10 +99,10 @@ class AddPost extends ConsumerWidget {
                         debugPrint("写真選択キャンセル");
                       }
                     },
-                    icon: Icon(Icons.add_photo_alternate),
+                    icon: const Icon(Icons.add_photo_alternate),
                     color: Colors.white,
                   ),
-                  SizedBox(width: 40),
+                  const SizedBox(width: 40),
                   IconButton(
                     //写真を撮影
                     iconSize: 45,
@@ -113,12 +112,12 @@ class AddPost extends ConsumerWidget {
                           .Camera();
                       router.push('/post/add/camera');
                     },
-                    icon: Icon(Icons.camera_alt),
+                    icon: const Icon(Icons.camera_alt),
                     color: Colors.white,
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (!ref.watch(addPostViewModelProvider).uploading)
                 IconButton(
                   iconSize: 45,
@@ -132,14 +131,17 @@ class AddPost extends ConsumerWidget {
                           poster: ref.watch(userViewModelProvider).email,
                         ),
                         ref);
-                    ref
-                        .read(addPostViewModelProvider.notifier)
-                        .changeIsUploading(false);
                     //router.pop();
                   },
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
+                  color: Colors.white,
+                )
+              else const Text(
+                "アップロードが完了しました",
+                style: TextStyle(
                   color: Colors.white,
                 ),
+              ),
             ],
           ),
         ),
@@ -179,7 +181,7 @@ class TakePictureScreen extends ConsumerWidget {
 
     _initializeControllerFuture = _controller.initialize();
     return Scaffold(
-      backgroundColor: Color(0xFF190831),
+      backgroundColor: const Color(0xFF190831),
       appBar: AppBar(),
       body: FutureBuilder(
         future: _initializeControllerFuture,

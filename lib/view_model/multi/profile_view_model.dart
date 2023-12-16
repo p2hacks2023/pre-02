@@ -1,5 +1,4 @@
 import 'package:firebase_tutorial/state/profile_state.dart';
-import 'package:firebase_tutorial/view/profile/profile.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:flutter/material.dart';

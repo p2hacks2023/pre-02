@@ -6,7 +6,6 @@ import 'package:firebase_tutorial/model/post.dart';
 import 'package:firebase_tutorial/model/prePost.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart';
 
 class PostsRepository {
   final CollectionReference _postsRef = FirebaseFirestore.instance.collection('posts');

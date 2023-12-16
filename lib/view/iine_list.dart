@@ -7,7 +7,7 @@ class IineList extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     return Scaffold(
-      appBar: AppBar(title: Text('いいね'),backgroundColor: Colors.transparent),
+      appBar: AppBar(title: const Text('いいね'),backgroundColor: Colors.transparent),
       body: //Text('Bottom Sheet'),
           ref.watch(iineListViewModelProvider).maybeWhen(
         data: (data) {
@@ -20,28 +20,28 @@ class IineList extends ConsumerWidget {
               cacheExtent: 80,
               itemBuilder: (context, index) {
                 return Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: Column(
                     children: [                    
                       Row(
                         children: [
-                          SizedBox(width:20,height: 5),
+                          const SizedBox(width:20,height: 5),
                           CircleAvatar(
                               radius: 20,
                               backgroundColor: Colors.white,
                               backgroundImage: NetworkImage(
                                   data.userList![index].iconUrl.toString())),
-                          SizedBox(width:20,height:20),
+                          const SizedBox(width:20,height:20),
                           if(CheckHiruYoru.isHiru) 
                             Text(
                               data.userList![index].nickname,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                               ),
                             )
                           else Text(
                             data.userList![index].nickname,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
                             ),
@@ -49,9 +49,9 @@ class IineList extends ConsumerWidget {
                         ],
                       ),
                       Container(
-                          padding: EdgeInsets.only(left: 80),
+                          padding: const EdgeInsets.only(left: 80),
                           alignment: Alignment.bottomLeft,
-                          child: Text(data.userList![index].introduction, )
+                          child: Text(data.userList![index].introduction)
                           ),
                     ],
                   ),
@@ -61,7 +61,7 @@ class IineList extends ConsumerWidget {
           }
         },
         orElse: () {
-          Text("orelse");
+          const Text("orelse");
         },
       ),
     );

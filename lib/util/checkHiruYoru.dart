@@ -30,7 +30,6 @@ class CheckHiruYoru{
         debugPrint("夜です");
         isHiru = false;
       }
-    }
-    
+    } 
   }
 }

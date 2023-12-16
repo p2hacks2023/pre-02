@@ -4,7 +4,6 @@ import 'package:firebase_tutorial/state/hiru_state.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'hiru_viewmodel.g.dart';
@@ -27,7 +26,7 @@ class HiruViewModel extends _$HiruViewModel{
   Future<void> initializePosts() async {
     PostsRepository postsRepository = PostsRepository();
     debugPrint("initializeposts");
-    state = AsyncLoading();
+    state = const AsyncLoading();
     List<Post> posts = await postsRepository.getAllPosts();
     state = AsyncData<HiruState> (
       HiruState(
@@ -37,19 +36,5 @@ class HiruViewModel extends _$HiruViewModel{
       )
     );
     debugPrint("initialize終わった");
-    /*
-    state = AsyncData(HiruState(posts: []));
-    state.when( //データの時
-      data: (HiruState data) async {
-        debugPrint("data");
-        state = const AsyncLoading();
-        List<Post> posts = await postsRepository.getAllPosts();
-        posts.forEach((element) {debugPrint("aaaueo" + element.description);});
-        state = AsyncData(data.copyWith(posts: posts));
-        //state = AsyncData(data.copyWith(posts: await postsRepository.getAllPosts()));
-      },
-      loading: () => debugPrint("loading"),
-      error: (_,__ ) => debugPrint("error"),
-    );*/
   }
 }

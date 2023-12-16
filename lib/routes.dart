@@ -14,7 +14,7 @@ import 'package:routemaster/routemaster.dart';
 final router = RoutemasterDelegate(
     routesBuilder: (_) => RouteMap(routes: {
           '/yoru': (router) {
-            return MaterialPage(child: Yoru());
+            return const MaterialPage(child: Yoru());
           },
           '/': (route) {
             return const MaterialPage(child: Splash());
@@ -45,7 +45,7 @@ final router = RoutemasterDelegate(
             return MaterialPage(child: AddPost());
           },
           '/hiru/profile': (route) {
-            return MaterialPage(child: Profile());
+            return const MaterialPage(child: Profile());
           },
           '/hiru/iinelist': (route) {
             return MaterialPage(child: IineList());

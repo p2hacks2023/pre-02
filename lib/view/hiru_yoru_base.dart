@@ -30,8 +30,8 @@ class HiruYoruBase extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              actionsIconTheme: IconThemeData(color: Colors.transparent),
-              iconTheme: IconThemeData(color: Colors.transparent),
+              actionsIconTheme: const IconThemeData(color: Colors.transparent),
+              iconTheme: const IconThemeData(color: Colors.transparent),
               shadowColor: Colors.transparent,
               floating: true,
               snap: true,
@@ -40,7 +40,7 @@ class HiruYoruBase extends StatelessWidget {
               surfaceTintColor: Colors.transparent,
               title: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Image.network(width: 250, height: 250, image.toString()),
@@ -50,7 +50,7 @@ class HiruYoruBase extends StatelessWidget {
             SliverToBoxAdapter(
               child: Column(
                 children: <Widget>[
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Consumer(
@@ -61,7 +61,7 @@ class HiruYoruBase extends StatelessWidget {
                           ref.watch(userViewModelProvider).iconUrl.toString()),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Consumer(builder: (context, ref, _) {
@@ -122,7 +122,7 @@ class HiruYoruBase extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
@@ -182,10 +182,10 @@ class HiruYoruBase extends StatelessWidget {
                             )
                           ],
                         ),
-                                              ],
+                      ],
                     );
                   }),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],
@@ -195,20 +195,20 @@ class HiruYoruBase extends StatelessWidget {
               pinned: true,
               delegate: _StickyTabBarDelegate(
                   tabBar: TabBar(
-                indicator: BoxDecoration(),
+                indicator: const BoxDecoration(),
                 labelColor: color,
                 dividerColor: Colors.transparent,
                 tabs: [
                   Tab(
                     child: Text(
                       leftTitle,
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     ),
                   ),
                   Tab(
                     child: Text(
                       rightTitle,
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     ),
                   ),
                 ],
