@@ -1,4 +1,7 @@
+import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
+import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
+import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -60,28 +63,124 @@ class HiruYoruBase extends StatelessWidget {
                     height: 10,
                   ),
                   Consumer(builder: (context, ref, _) {
+                    String nickname = ref.watch(userViewModelProvider).nickname;
                     return Column(
                       children: [
-                        Text(
-                          ref.watch(userViewModelProvider).nickname,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: color,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              child: Text(
+                                ref.watch(userViewModelProvider).nickname,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: color,
+                                )
+                              ),
+                      onPressed: (){
+                              showDialog(
+                                context: context, 
+                                builder: (context) {
+                                  UsersRepository usersRepository = UsersRepository();
+                                  return AlertDialog(
+                                    title: const Text("ニックネームの編集"),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text("キャンセル"),
+                                        onPressed: () => router.pop(),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          if(nickname != ""){
+                                            await usersRepository.changeNickname(ref, nickname);
+                                            ref.read(hiruViewModelProvider.notifier).initializePosts();
+                                            ref.read(userViewModelProvider.notifier).changeNickname(ref, nickname);
+                                            router.pop();
+                                          }
+                                        }, 
+                                        child: const Text("変更する")
+                                      ),
+                                    ],
+                                    content: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          TextField(
+                                            onChanged: (value) => nickname = value,
+                                            decoration: InputDecoration(
+                                              hintText: nickname,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                              }, 
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          ref.watch(userViewModelProvider).introduction,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: color,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              child: Text(
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: color,
+                                ),
+                                ref.watch(userViewModelProvider).introduction
+                              ),
+           onPressed: () => showDialog(
+                                context: context, 
+                                builder: (context) {
+                                  return Consumer(
+                                    builder: (context, ref, _) {
+                                      String introduction = ref.watch(userViewModelProvider).introduction;
+                                      return AlertDialog(
+                                        title: const Text("自己紹介の編集"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              router.pop();
+                                            }, 
+                                            child: const Text("キャンセル"),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async {
+                                              if(introduction != ""){
+                                                ref.read(userViewModelProvider.notifier).changeIntroduction(ref, introduction);
+                                                router.pop();
+                                              }
+                                            },
+                                            child: const Text("変更する"),
+                                          )
+                                        ],
+                                        content: SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              TextField(
+                                                onChanged: (value) => introduction = value,
+                                                decoration: InputDecoration(
+                                                  hintText: introduction,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  );
+                                }
+                              ), 
+                            )
+                          ],
                         ),
-                      ],
+                                              ],
                     );
                   }),
                   SizedBox(
