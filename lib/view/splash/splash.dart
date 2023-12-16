@@ -3,6 +3,7 @@ import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
+import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:firebase_tutorial/view_model/single/iine_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +36,7 @@ class Splash extends StatelessWidget {
                       introduction: "イントロダクション"
                     ),
                   );
+                  ref.read(hiruViewModelProvider.notifier).initializePosts();
                   if(CheckHiruYoru.isHiru()) {
                     await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
                     router.push('/hiru');

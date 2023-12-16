@@ -11,7 +11,7 @@ class IineList extends ConsumerWidget {
           ref.watch(iineListViewModelProvider).maybeWhen(
         data: (data) {
           if (data.userList == null) {
-            return Text("daiue");
+            return const SizedBox.shrink();
             //nullの時
           } else {
             return ListView.builder(

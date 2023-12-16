@@ -274,10 +274,15 @@ class Iine extends StatefulWidget {
       );
 
   @override
-  _IineState createState() => _IineState();
+  _IineState createState() => _IineState(users);
 }
 
 class _IineState extends State<Iine> {
+  List user2 = [];
+  _IineState(List users2){
+    user2 = List.of(users2);
+    users2.forEach((element) {debugPrint("init"+ element);});
+  }
   @override
   Widget build(BuildContext context) {
     Color color;
@@ -304,9 +309,13 @@ class _IineState extends State<Iine> {
                   if (widget.isFavorite) {
                     widget.numOfFavorite--;
                     postsRepository.removeIine(widget.postId, widget.email);
+                    user2.removeWhere((element) => element == widget.email);
+                    user2.forEach((element) {debugPrint(element);});
                   } else {
                     widget.numOfFavorite++;
                     postsRepository.addIine(widget.postId, widget.email);
+                    user2.add(widget.email);
+                    user2.forEach((element) {debugPrint(element);});
                   }
                   setState(() {
                     widget.isFavorite = !widget.isFavorite;
@@ -322,7 +331,7 @@ class _IineState extends State<Iine> {
           builder: (context, ref, _) {
             return TextButton(
               onPressed: () async {
-                ref.read(iineListViewModelProvider.notifier).addFavorites(widget.users);
+                ref.read(iineListViewModelProvider.notifier).addFavorites(user2);
                 //widget.users.forEach(
                 //  (element) => debugPrint(element.toString())
                 //);
