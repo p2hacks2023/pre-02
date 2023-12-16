@@ -54,9 +54,9 @@ class Hiru extends ConsumerWidget {
                               //Color.fromRGBO(249, 243, 217, 1),
                               child: Column(
                                 children: [
-                                  SizedBox(
-                                    height: 10,
-                                  ),
+                                 SizedBox(
+                                   height: 5,
+                                 ),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           shape: CircleBorder(),
