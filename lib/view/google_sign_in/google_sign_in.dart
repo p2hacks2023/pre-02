@@ -1,5 +1,7 @@
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
+import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
+import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
 import 'package:firebase_tutorial/view_model/single/add_post_viewmodel.dart';
 import 'package:firebase_tutorial/view_model/single/google_sign_in_view_model.dart';
@@ -87,11 +89,13 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
           //すでにユーザーが存在したら
           await usersRepository.signin(ref);
           if (CheckHiruYoru.isHiru()) {
+            await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
             router.replace('/hiru');
           } else {
             router.replace('/yoru');
           }
         } else {
+          await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
           router.replace('/signup');
         }
       }

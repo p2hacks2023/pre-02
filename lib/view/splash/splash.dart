@@ -1,7 +1,10 @@
 import 'package:firebase_tutorial/model/user.dart';
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
+import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
+import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
+import 'package:firebase_tutorial/view_model/single/iine_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,6 +13,7 @@ class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? mailAddress = "tiharu717@gmail.com";
     return Scaffold(
     appBar: AppBar(title: const Text("Splash"),),
       body: Column(
@@ -23,7 +27,7 @@ class Splash extends StatelessWidget {
             builder: (context, ref, _) {
               return TextButton(
                 child: const Text("開発者用ログイン"),
-                onPressed: () {
+                onPressed: () async {
                  ref.read(userViewModelProvider.notifier).setUser(
                     User(//デバッグ用
                       nickname: "developer", 
@@ -32,40 +36,51 @@ class Splash extends StatelessWidget {
                       introduction: "イントロダクション"
                     ),
                   );
+                  ref.read(hiruViewModelProvider.notifier).initializePosts();
                   if(CheckHiruYoru.isHiru()) {
+                    await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
                     router.push('/hiru');
                   }else{
+                    await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
                     router.replace('/yoru');
                   }
                 }
               );
             }
           ),
+          TextField(
+            onChanged: (value) => mailAddress = value,
+          ),
+          Consumer(
+            builder: (context, ref, _) {
+              return TextButton(
+                onPressed: () async {
+                  await ref.read(profileViewModelProvider.notifier).addUserToProfile(mailAddress!);
+                  router.push('/profile');
+                }, 
+                child: Text("プロフィールを見る")
+              );
+            }
+          ),
+          Consumer(
+            builder: (context, ref, _) {
+              return TextButton(
+                onPressed: () {
+                  ref.read(iineListViewModelProvider.notifier).addFavorites(
+                    [
+                      "tiharu717@gmail.com",
+                      "developer@developer.com",
+                    ]
+                  );
+                  router.push('/hiru/iinelist');
+                },
+                child: Text("いいね"),
+              );
+            },
+          )
         ],
       ),
     );
   }
 }
 
-/*
-class Iine extends StatefulWidget {
-  const Iine({super.key});
-
-  @override
-  State<Iine> createState() => _IineState();
-}
-
-class _IineState extends State<Iine> {
-  bool isIine = false;
-  @override
-  Widget build(BuildContext context) {
-    Color color ;
-    if (isIine) color = Colors.red;
-    else color = Colors.black12;
-    return IconButton(
-      onPressed: () => setState(() {
-      isIine = !isIine;
-    }), 
-    icon: Icon(Icons.favorite, color:color));
-  }
-}*/
