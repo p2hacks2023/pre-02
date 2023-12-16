@@ -27,8 +27,16 @@ class AddPost extends ConsumerWidget{
           child: Column(
             children: [
               SizedBox(height: 35),
-              if(ref.watch(addPostViewModelProvider).file == null)
-              DottedBorder(
+              //if(ref.watch(addPostViewModelProvider).file == null)
+              
+                //Container(
+                //  width: 300,
+                //  height: 400,
+                //  child: Image.file(ref.watch(addPostViewModelProvider).file!)
+                //  ),
+                if(ref.watch(addPostViewModelProvider).file != null)  AspectRatio(aspectRatio: 3/4, child: Image.file(fit: BoxFit.cover, width: 300, height: 400,ref.watch(addPostViewModelProvider).file!))
+                //Image.network(width: 300, height: 400, "https://media.discordapp.net/attachments/1182963676630753310/1182964298058829895/DSC_0049_1.JPG?ex=65869c5b&is=6574275b&hm=0cedc7a9c0583980372b27151cc7f15c2d99fe575bca9800c8c715a737b55e88&=&format=webp&width=1000&height=1332"),
+                else DottedBorder(
                 color: Colors.white,
                 dashPattern: [
                  15.0, // 点線を引く長さ
@@ -44,13 +52,6 @@ class AddPost extends ConsumerWidget{
                 ),
               ),
                 ),
-                if(ref.watch(addPostViewModelProvider).file != null) 
-                //Container(
-                //  width: 300,
-                //  height: 400,
-                //  child: Image.file(ref.watch(addPostViewModelProvider).file!)
-                //  ),
-                Image.file(width: 300, height: 400,ref.watch(addPostViewModelProvider).file!),
               
               Row(
                 children: [
