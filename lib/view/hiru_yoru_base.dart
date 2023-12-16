@@ -1,4 +1,6 @@
+import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HiruYoruBase extends StatelessWidget {
   const HiruYoruBase({
@@ -7,11 +9,15 @@ class HiruYoruBase extends StatelessWidget {
     required this.rightTitle,
     required this.leftWidget,
     required this.rightWidget,
+    required this.color,
+    required this.image,
   });
   final String leftTitle;
   final String rightTitle;
   final Widget leftWidget;
   final Widget rightWidget;
+  final Color color;
+  final Uri image;
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +28,66 @@ class HiruYoruBase extends StatelessWidget {
           return <Widget>[
             SliverAppBar(
               shadowColor: Colors.transparent,
-              pinned: true,
               floating: true,
-              //collapsedHeight: 56,
-              expandedHeight: 80,
-              elevation: 0,
+              snap: true,
+              expandedHeight: 50,
               backgroundColor: Colors.transparent,
               surfaceTintColor: Colors.transparent,
-              /*
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  'demo',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),*/
-              title: Text(
-                "demo",
-                style: TextStyle(fontSize: 30),
+              title: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Image.network(width: 250, height: 250, image.toString()),
+                ],
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Consumer(
+                    builder: (context, ref, _) => CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage(
+                          ref.watch(userViewModelProvider).iconUrl.toString()),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Consumer(builder: (context, ref, _) {
+                    return Column(
+                      children: [
+                        Text(
+                          ref.watch(userViewModelProvider).nickname,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: color,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          ref.watch(userViewModelProvider).introduction,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: color,
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
               ),
             ),
             SliverPersistentHeader(
@@ -46,14 +95,20 @@ class HiruYoruBase extends StatelessWidget {
               delegate: _StickyTabBarDelegate(
                   tabBar: TabBar(
                 indicator: BoxDecoration(),
-                labelColor: Colors.black,
+                labelColor: color,
                 dividerColor: Colors.transparent,
                 tabs: [
                   Tab(
-                    text: leftTitle,
+                    child: Text(
+                      leftTitle,
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                   Tab(
-                    text: rightTitle,
+                    child: Text(
+                      rightTitle,
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 ],
               )),
