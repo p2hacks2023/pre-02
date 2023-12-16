@@ -2,7 +2,10 @@ import 'package:firebase_tutorial/model/user.dart';
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view/google_sign_in/google_sign_in.dart';
+import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
+import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
+import 'package:firebase_tutorial/view_model/single/iine_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
   @override
   Widget build(BuildContext context) {
+    String? mailAddress = "tiharu717@gmail.com";
     return Scaffold(
     appBar: AppBar(title: const Text("Splash"),),
       body: Column(
@@ -24,7 +28,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
             builder: (context, ref, _) {
               return TextButton(
                 child: const Text("開発者用ログイン"),
-                onPressed: () {
+                onPressed: () async {
                  ref.read(userViewModelProvider.notifier).setUser(
                     User(//デバッグ用
                       nickname: "developer", 
@@ -33,9 +37,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
                       introduction: "イントロダクション"
                     ),
                   );
+                  ref.read(hiruViewModelProvider.notifier).initializePosts();
                   if(CheckHiruYoru.isHiru()) {
+                    await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
                     router.push('/hiru');
                   }else{
+                    await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
                     router.replace('/yoru');
                   }
                 }
@@ -122,3 +129,4 @@ class _IineState extends State<Iine> {
     icon: Icon(Icons.favorite, color:color));
   }
 }*/
+

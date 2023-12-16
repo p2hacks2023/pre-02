@@ -41,6 +41,15 @@ class UserViewModel extends _$UserViewModel {
   Future<void> changeIntroduction(WidgetRef ref, String introduction) async{
     UsersRepository usersRepository = UsersRepository();
     await usersRepository.changeIntroduction(ref, introduction);
+    state = state.copyWith(
+      introduction: introduction,
+    );
+  }
+  
+  Future<void> changeNickname(WidgetRef ref, String nickname) async {
+    state = state.copyWith(
+      nickname: nickname,
+    );
   }
   /*
   Future<void> changeIntroduction(String introduction){

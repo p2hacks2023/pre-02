@@ -56,7 +56,7 @@ class UsersRepository{
   Future<void> changeIntroduction(WidgetRef ref, String introduction) async {
     try {
       String id = "";
-      await userRef.where('email', isEqualTo: ref.watch(googleSignInViewModelProvider).email).get()
+      await userRef.where('email', isEqualTo: ref.watch(userViewModelProvider).email).get()
       .then((querySnapshot) {
         id = querySnapshot.docs[0].id;
       });
@@ -73,7 +73,7 @@ class UsersRepository{
     CollectionReference postRef = FirebaseFirestore.instance.collection('posts');
     String id = "";
     try{
-      await userRef.where('email', isEqualTo: ref.watch(googleSignInViewModelProvider).email).get()
+      await userRef.where('email', isEqualTo: ref.watch(userViewModelProvider).email).get()
       .then((querySnapshot) {
         id = querySnapshot.docs[0].id;
       });
@@ -81,7 +81,7 @@ class UsersRepository{
         'nickname': nickname,
       });
       List<String> idsToUpdate = [];
-      await postRef.where('poster', isEqualTo: ref.watch(googleSignInViewModelProvider).email).get()
+      await postRef.where('poster', isEqualTo: ref.watch(userViewModelProvider).email).get()
       .then((querySnapshot) {
         for (var element in querySnapshot.docs) {idsToUpdate.add(element.id);}
       });
