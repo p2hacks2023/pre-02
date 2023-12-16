@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_tutorial/state/hiru_state.dart';
 import 'package:firebase_tutorial/view/hiru_yoru_base.dart';
 import 'package:firebase_tutorial/view/profile/profile.dart';
