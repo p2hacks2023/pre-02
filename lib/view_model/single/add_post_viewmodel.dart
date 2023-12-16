@@ -14,7 +14,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_post_viewmodel.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AddPostViewModel extends _$AddPostViewModel {
   @override
   AddPostState build(){

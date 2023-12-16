@@ -47,6 +47,7 @@ class _MainAppState extends State<MainApp> {
       theme: theme,
       routerDelegate: router,
       routeInformationParser: const RoutemasterParser(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -11,12 +11,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-
-class AddPost extends ConsumerWidget{
+class AddPost extends ConsumerWidget {
   String description = "";
   final ImagePicker _picker = ImagePicker();
 
-  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -27,32 +25,40 @@ class AddPost extends ConsumerWidget{
           child: Column(
             children: [
               SizedBox(height: 35),
-              //if(ref.watch(addPostViewModelProvider).file == null)
-              
-                //Container(
-                //  width: 300,
-                //  height: 400,
-                //  child: Image.file(ref.watch(addPostViewModelProvider).file!)
-                //  ),
-                if(ref.watch(addPostViewModelProvider).file != null)  AspectRatio(aspectRatio: 3/4, child: Image.file(fit: BoxFit.cover, width: 300, height: 400,ref.watch(addPostViewModelProvider).file!))
-                //Image.network(width: 300, height: 400, "https://media.discordapp.net/attachments/1182963676630753310/1182964298058829895/DSC_0049_1.JPG?ex=65869c5b&is=6574275b&hm=0cedc7a9c0583980372b27151cc7f15c2d99fe575bca9800c8c715a737b55e88&=&format=webp&width=1000&height=1332"),
-                else DottedBorder(
-                color: Colors.white,
-                dashPattern: [
-                 15.0, // 点線を引く長さ
-                  6.0 //点線の溝の長さ
-                 ],
-                child: Container(
-                width: 300,
-                height: 400,
-                decoration: BoxDecoration(
-                  color: Color(0xFF190831).withOpacity(0),
-                  //border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(10),
+              if (ref.watch(addPostViewModelProvider).file != null)
+                Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: AspectRatio(
+                      aspectRatio: 3 / 4,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(120),
+                        child: Image.file(
+                            fit: BoxFit.cover,
+                            ref.watch(addPostViewModelProvider).file!),
+                      )),
+                )
+              else
+                Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(120),
+                    color: Colors.white,
+                    dashPattern: [
+                      15.0, // 点線を引く長さ
+                      6.0 //点線の溝の長さ
+                    ],
+                      child: Container(
+                        child: AspectRatio(
+                          aspectRatio: 3 / 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF190831).withOpacity(0),
+                          borderRadius: BorderRadius.circular(120),
+                        ),
+                      ),
+                  ),
                 ),
-              ),
-                ),
-              
               Row(
                 children: [
                   SizedBox(width: 30),
@@ -61,13 +67,13 @@ class AddPost extends ConsumerWidget{
                       style: TextStyle(
                         color: Colors.white,
                         backgroundColor: Color(0xFF190831),
-                        ),
+                      ),
                       onChanged: (value) => description = value,
                       decoration: const InputDecoration(
                         hintText: "add text",
                         hintStyle: TextStyle(
-                          color:Colors.grey,
-                           ),
+                          color: Colors.grey,
+                        ),
                         contentPadding: EdgeInsets.all(10),
                       ),
                     ),
@@ -75,58 +81,65 @@ class AddPost extends ConsumerWidget{
                   SizedBox(width: 30),
                 ],
               ),
-              SizedBox(height: 30,),
-              
+              SizedBox(
+                height: 30,
+              ),
               Row(
-                mainAxisAlignment:MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  
-                  IconButton(//写真を選択
+                  IconButton(
+                    //写真を選択
                     iconSize: 45,
                     onPressed: () async {
-                      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                      final XFile? image =
+                          await _picker.pickImage(source: ImageSource.gallery);
                       if (image != null) {
-                        ref.read(addPostViewModelProvider.notifier).addFile(File(image.path));//_file = File(_image!.path);
+                        ref.read(addPostViewModelProvider.notifier).addFile(
+                            File(image.path)); //_file = File(_image!.path);
                       } else {
                         debugPrint("写真選択キャンセル");
                       }
-                    }, 
+                    },
                     icon: Icon(Icons.add_photo_alternate),
                     color: Colors.white,
-                               
                   ),
                   SizedBox(width: 40),
-                  IconButton(//写真を撮影
-                  iconSize: 45,
-                onPressed:() async {
-                  await ref.read(addPostViewModelProvider.notifier).Camera();
-                  router.push('/post/add/camera');
-                } , 
-                icon: Icon(Icons.camera_alt),
-                color: Colors.white,
-                ),
+                  IconButton(
+                    //写真を撮影
+                    iconSize: 45,
+                    onPressed: () async {
+                      await ref
+                          .read(addPostViewModelProvider.notifier)
+                          .Camera();
+                      router.push('/post/add/camera');
+                    },
+                    icon: Icon(Icons.camera_alt),
+                    color: Colors.white,
+                  ),
                 ],
               ),
               SizedBox(height: 20),
-              
-              if(!ref.watch(addPostViewModelProvider).uploading)
-              IconButton(
-                iconSize: 45,
-                onPressed: () async{
-                    ref.read(addPostViewModelProvider.notifier).changeIsUploading(true); //アップロード中に状態を変更
+              if (!ref.watch(addPostViewModelProvider).uploading)
+                IconButton(
+                  iconSize: 45,
+                  onPressed: () async {
+                    ref
+                        .read(addPostViewModelProvider.notifier)
+                        .changeIsUploading(true); //アップロード中に状態を変更
                     await ref.read(addPostViewModelProvider.notifier).addPost(
-                      PrePost(
-                        description: description,
-                        poster: ref.watch(userViewModelProvider).email,
-                      ),
-                      ref
-                    );
-                    ref.read(addPostViewModelProvider.notifier).changeIsUploading(false);
+                        PrePost(
+                          description: description,
+                          poster: ref.watch(userViewModelProvider).email,
+                        ),
+                        ref);
+                    ref
+                        .read(addPostViewModelProvider.notifier)
+                        .changeIsUploading(false);
                     //router.pop();
                   },
-               icon: Icon(Icons.send),
-               color: Colors.white,
-               ),
+                  icon: Icon(Icons.send),
+                  color: Colors.white,
+                ),
             ],
           ),
         ),
@@ -147,20 +160,18 @@ class CustomizeFloatingLocation extends FloatingActionButtonLocation {
   }
 }
 
-
-class TakePictureScreen extends ConsumerWidget{
+class TakePictureScreen extends ConsumerWidget {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
 
-
   @override
-  void dispose(){
+  void dispose() {
     _controller.dispose();
   }
-  @override
-  Widget build(BuildContext context, ref){
 
-     _controller = CameraController(
+  @override
+  Widget build(BuildContext context, ref) {
+    _controller = CameraController(
       ref.watch(addPostViewModelProvider).camera!,
       ResolutionPreset.medium,
       enableAudio: false,
@@ -172,36 +183,30 @@ class TakePictureScreen extends ConsumerWidget{
       appBar: AppBar(),
       body: FutureBuilder(
         future: _initializeControllerFuture,
-       builder: (context, snapshot){
-        if(snapshot.connectionState == ConnectionState.done){
-          return  CameraPreview(_controller);
-        }else{
-          return const Center(child: CircularProgressIndicator()
-          );
-        }
-       },
-       ),
-       floatingActionButtonLocation:CustomizeFloatingLocation(FloatingActionButtonLocation.centerDocked,0,-50),
-       floatingActionButton: Container(
-         height:75 ,
-         width: 75,
-         child: FloatingActionButton(
-
-          onPressed:()async{
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return CameraPreview(_controller);
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+      floatingActionButtonLocation: CustomizeFloatingLocation(
+          FloatingActionButtonLocation.centerDocked, 0, -50),
+      floatingActionButton: Container(
+        height: 75,
+        width: 75,
+        child: FloatingActionButton(
+          onPressed: () async {
             final image = await _controller.takePicture();
-            ref.read(addPostViewModelProvider.notifier).addFile(File(image.path));
-            router.pop();
+            ref
+                .read(addPostViewModelProvider.notifier)
+                .addFile(File(image.path));
+            router.replace('/yoru');
           },
-               
           child: const Icon(Icons.camera_alt),
-           ),
-       ),
-       
+        ),
+      ),
     );
-    
   }
 }
-
-
-
-

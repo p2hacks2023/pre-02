@@ -10,8 +10,8 @@ class Yoru extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: HiruYoruBase(
-        leftTitle: 'addpost',
-        rightTitle: 'Profile',
+        leftTitle: 'Add Post',
+        rightTitle: 'My Profile',
         leftWidget: AddPost(),
         rightWidget: Text("右"),
         color: Colors.white,
