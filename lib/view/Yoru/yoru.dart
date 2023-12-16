@@ -15,9 +15,9 @@ class Yoru extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Color(0xff190831),
       body: HiruYoruBase(
-        leftTitle: 'addpost',
-        rightTitle: 'Profile',
-        leftWidget: Text("左"),
+        leftTitle: 'Add Post',
+        rightTitle: 'My Profile',
+        leftWidget: AddPost(),
         rightWidget: ref.watch(hiruViewModelProvider).when(
               data: (HiruState data) {
                 return ListView.builder(
@@ -118,6 +118,8 @@ class Yoru extends ConsumerWidget {
           'https://cdn.discordapp.com/attachments/1181202431116312719/1185187126946574416/42_20231215204918.PNG?ex=658eb286&is=657c3d86&hm=e6c6a9b4b5890e96204f40f6539e55e6fa32618455e78d01a130b8a8244b7e57&'
           ),
       ),
+      backgroundColor: Color(0xFF190831),
+      //backgroundColor: Colors.transparent,
     );
   }
 }
