@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_post_viewmodel.dart';
+part of 'profile_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addPostViewModelHash() => r'ad9ca2754d81a66bc8013630bff8973762ef87ba';
+String _$profileViewModelHash() => r'2304372206b400851ca6c12212c8189a35ce321a';
 
-/// See also [AddPostViewModel].
-@ProviderFor(AddPostViewModel)
-final addPostViewModelProvider =
-    NotifierProvider<AddPostViewModel, AddPostState>.internal(
-  AddPostViewModel.new,
-  name: r'addPostViewModelProvider',
+/// See also [ProfileViewModel].
+@ProviderFor(ProfileViewModel)
+final profileViewModelProvider =
+    AsyncNotifierProvider<ProfileViewModel, ProfileState>.internal(
+  ProfileViewModel.new,
+  name: r'profileViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$addPostViewModelHash,
+      : _$profileViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AddPostViewModel = Notifier<AddPostState>;
+typedef _$ProfileViewModel = AsyncNotifier<ProfileState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

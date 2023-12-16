@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:routemaster/routemaster.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Firebase.initializeApp();
@@ -32,7 +32,6 @@ class _MainAppState extends State<MainApp> {
     if(!CheckHiruYoru.isHiru){
       theme = ThemeData(
         canvasColor: const Color(0xFF190831),
-        textTheme: TextTheme(),
         appBarTheme: const AppBarTheme(
           color:Color(0xFF240A4B),
         )
@@ -49,6 +48,7 @@ class _MainAppState extends State<MainApp> {
       theme: theme,
       routerDelegate: router,
       routeInformationParser: const RoutemasterParser(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

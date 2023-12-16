@@ -29,25 +29,27 @@ class PostsRepository {
   //ログインしてるユーザー以外の投稿を見る
   Future<List<Post>> getAllPostsWithoutMe(String email) async {
     List<Post> posts = [];
-    await _postsRef.where('poster', isNotEqualTo: email).orderBy('poster').orderBy('post_datetime', descending: true).get().then(
+    await _postsRef.where('poster', isNotEqualTo: email).get().then(
       (QuerySnapshot<Object?> querySnapshot) {
         for(var docSnapshot in querySnapshot.docs) {
           posts.add(Post.fromFirestore(docSnapshot));
         }
       }
     );
+    posts.sort((a,b) => b.postDatetime.compareTo(a.postDatetime));
     return posts;
   }
   
   Future<List<Post>> getAllPostsOnlyMe(String email) async{
     List<Post> posts = [];
-    await _postsRef.where('poster', isEqualTo: email).orderBy('post_datetime', descending: true).get().then(
+    await _postsRef.where('poster', isEqualTo: email).get().then(
       (QuerySnapshot<Object?> querySnapshot) {
         for(var docSnapshot in querySnapshot.docs) {
           posts.add(Post.fromFirestore(docSnapshot));
         }
       }
     );
+    posts.sort((a,b) => b.postDatetime.compareTo(a.postDatetime));
     return posts;
   }
   
