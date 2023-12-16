@@ -1,5 +1,6 @@
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/state/hiru_state.dart';
+import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view/hiru_yoru_base.dart';
 import 'package:firebase_tutorial/view/profile/profile.dart';
 import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
@@ -37,6 +38,7 @@ class Hiru extends ConsumerWidget {
               data: (HiruState data) {
                 return ListView.builder(
                   itemCount: data.postsWithoutMe.length,
+                  cacheExtent: 80,
                   itemBuilder: (context, index) {
                     return Container(
                       padding: EdgeInsets.all(10),
@@ -113,6 +115,7 @@ class Hiru extends ConsumerWidget {
                                       .favoriteArray.length,
                                   ref: ref,
                                   users: data.postsWithoutMe[index].favoriteArray,
+                                  color_text: Colors.black,
                                 )
                               else
                                 Iine(
@@ -122,6 +125,7 @@ class Hiru extends ConsumerWidget {
                                       .favoriteArray.length,
                                   ref: ref,
                                   users: data.postsWithoutMe[index].favoriteArray,
+                                  color_text: Colors.black,
                                 ),
                               
                               //日付
@@ -199,6 +203,7 @@ class Hiru extends ConsumerWidget {
                                       .postsOnlyMe[index].favoriteArray.length,
                                   ref: ref,
                                   users: data.postsOnlyMe[index].favoriteArray,
+                                  color_text: Colors.black,
                                 )
                               else
                                 Iine(
@@ -208,6 +213,7 @@ class Hiru extends ConsumerWidget {
                                       .postsOnlyMe[index].favoriteArray.length,
                                   ref: ref,
                                   users: data.postsOnlyMe[index].favoriteArray,
+                                  color_text: Colors.black,
                                 ),
                               
                               //日付
@@ -263,6 +269,7 @@ class Iine extends StatefulWidget {
   int numOfFavorite;
   WidgetRef ref;
   List users;
+  Color color_text;
   Iine(
       {this.isFavorite = false,
       required this.postId,
@@ -270,6 +277,7 @@ class Iine extends StatefulWidget {
       required this.numOfFavorite,
       required this.ref,
       required this.users,
+      this.color_text = Colors.white
       }
       );
 
@@ -335,11 +343,12 @@ class _IineState extends State<Iine> {
                 //widget.users.forEach(
                 //  (element) => debugPrint(element.toString())
                 //);
-                router.push('/hiru/iinelist');
+                if(CheckHiruYoru.isHiru) router.push('/hiru/iinelist');
+                else router.push('/yoru/iinelist');
               }, //required List favoriteArray,
               child: Text(
                 'いいね${widget.numOfFavorite.toString()}件',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: widget.color_text),
               ),
               style: TextButton.styleFrom(
                 primary: Colors.transparent,

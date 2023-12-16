@@ -1,4 +1,5 @@
 import 'package:firebase_tutorial/state/hiru_state.dart';
+import 'package:firebase_tutorial/view/Hiru/hiru.dart';
 import 'package:firebase_tutorial/view/hiru_yoru_base.dart';
 import 'package:firebase_tutorial/view/post/add_post.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
@@ -22,6 +23,7 @@ class Yoru extends ConsumerWidget {
               data: (HiruState data) {
                 return ListView.builder(
                   itemCount: data.postsOnlyMe.length,
+                  cacheExtent: 80,
                   itemBuilder: (context, index) {
                     return Container(
                       padding: EdgeInsets.all(10),
@@ -35,14 +37,12 @@ class Yoru extends ConsumerWidget {
                                 child: Image.network(
                                     fit: BoxFit.cover,
                                     data.postsOnlyMe[index].imageUrl
-                                        .toString())),
-                          ),
-                          //いいね・日付
+                                        .toString()
+                                        )),
+                          ),            //いいね・日付
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: 10,
-                              ),
                               //月
                               if (data.postsOnlyMe[index].favoriteArray
                                   .contains(
@@ -53,38 +53,42 @@ class Yoru extends ConsumerWidget {
                                   email: ref.watch(userViewModelProvider).email,
                                   numOfFavorite: data
                                       .postsOnlyMe[index].favoriteArray.length,
+                                  users: data.postsOnlyMe[index].favoriteArray,
+                                  ref: ref,
                                 )
                               else
                                 Iine(
+                                  ref: ref,
                                   postId: data.postsOnlyMe[index].id,
                                   email: ref.watch(userViewModelProvider).email,
                                   numOfFavorite: data
                                       .postsOnlyMe[index].favoriteArray.length,
+                                  users: data.postsOnlyMe[index].favoriteArray,
                                 ),
-
-                              SizedBox(
-                                width: 150,
-                              ),
                               //日付
-                              Text(
-                                '${data.postsOnlyMe[index].postDatetime.year.toString()}/',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                '${data.postsOnlyMe[index].postDatetime.month.toString()}/',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                '${data.postsOnlyMe[index].postDatetime.day.toString()}/',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                '${data.postsOnlyMe[index].postDatetime.hour.toString()}:',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                '${data.postsOnlyMe[index].postDatetime.minute.toString()}',
-                                style: TextStyle(color: Colors.white),
+                              Row(
+                                children: [
+                                  Text(
+                                    '${data.postsOnlyMe[index].postDatetime.year.toString()}/',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Text(
+                                    '${data.postsOnlyMe[index].postDatetime.month.toString()}/',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Text(
+                                    '${data.postsOnlyMe[index].postDatetime.day.toString()}/',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Text(
+                                    '${data.postsOnlyMe[index].postDatetime.hour.toString()}:',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Text(
+                                    '${data.postsOnlyMe[index].postDatetime.minute.toString()}',
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                 ],
                               ),
                             ],
                           ),
@@ -123,67 +127,68 @@ class Yoru extends ConsumerWidget {
   }
 }
 
-class Iine extends StatefulWidget {
-  late bool isFavorite;
-  final postId;
-  final email;
-  int numOfFavorite;
-  Iine(
-      {this.isFavorite = false,
-      required this.postId,
-      required this.email,
-      required this.numOfFavorite});
-
-  @override
-  _IineState createState() => _IineState();
-}
-
-class _IineState extends State<Iine> {
-  @override
-  Widget build(BuildContext context) {
-    Color color;
-    if (widget.isFavorite)
-      color = Colors.yellow;
-    else
-      color = Colors.white;
-    return Row(
-      children: [
-        Stack(
-          children: [
-            IconButton(
-                onPressed: () {
-                  debugPrint("うえ");
-                },
-                icon: Icon(Icons.mode_night),
-                color: color,
-                iconSize: 32),
-            Consumer(builder: (context, ref, _) {
-              return IconButton(
-                onPressed: () async {
-                  PostsRepository postsRepository = PostsRepository();
-                  debugPrint("下");
-                  if (widget.isFavorite) {
-                    widget.numOfFavorite--;
-                    postsRepository.removeIine(widget.postId, widget.email);
-                  } else {
-                    widget.numOfFavorite++;
-                    postsRepository.addIine(widget.postId, widget.email);
-                  }
-                  setState(() {
-                    widget.isFavorite = !widget.isFavorite;
-                  });
-                },
-                icon: Icon(Icons.mode_night_outlined),
-                iconSize: 32,
-              );
-            })
-          ],
-        ),
-        Text(
-          'いいね${widget.numOfFavorite.toString()}件',
-          style: TextStyle(color: Colors.white),
-        ),
-      ],
-    );
-  }
-}
+//class Iine extends StatefulWidget {
+//  late bool isFavorite;
+//  final postId;
+//  final email;
+//  int numOfFavorite;
+//  Iine(
+//      {this.isFavorite = false,
+//      required this.postId,
+//      required this.email,
+//      required this.numOfFavorite});
+//
+//  @override
+//  _IineState createState() => _IineState();
+//}
+//
+//class _IineState extends State<Iine> {
+//  @override
+//  Widget build(BuildContext context) {
+//    Color color;
+//    if (widget.isFavorite)
+//      color = Colors.yellow;
+//    else
+//      color = Colors.white;
+//    return Row(
+//      children: [
+//        Stack(
+//          children: [
+//            IconButton(
+//                onPressed: () {
+//                  debugPrint("うえ");
+//                },
+//                icon: Icon(Icons.mode_night),
+//                color: color,
+//                iconSize: 32),
+//            Consumer(builder: (context, ref, _) {
+//              return IconButton(
+//                onPressed: () async {
+//                  PostsRepository postsRepository = PostsRepository();
+//                  debugPrint("下");
+//                  if (widget.isFavorite) {
+//                    widget.numOfFavorite--;
+//                    postsRepository.removeIine(widget.postId, widget.email);
+//                  } else {
+//                    widget.numOfFavorite++;
+//                    postsRepository.addIine(widget.postId, widget.email);
+//                  }
+//                  setState(() {
+//                    widget.isFavorite = !widget.isFavorite;
+//                  });
+//                },
+//                icon: Icon(Icons.mode_night_outlined),
+//                iconSize: 32,
+//              );
+//            })
+//          ],
+//        ),
+//        Text(
+//          'いいね${widget.numOfFavorite.toString()}件',
+//          style: TextStyle(color: Colors.white),
+//        ),
+//      ],
+//    );
+//  }
+//}
+//

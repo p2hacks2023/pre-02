@@ -49,6 +49,9 @@ final router = RoutemasterDelegate(
           },
           '/hiru/iinelist': (route) {
             return MaterialPage(child: IineList());
+          },
+          '/yoru/iinelist': (route) {
+            return MaterialPage(child: IineList());
           }
   })
 );
