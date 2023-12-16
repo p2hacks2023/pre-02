@@ -11,7 +11,7 @@ class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? mailAddress;
+    String? mailAddress = "tiharu717@gmail.com";
     return Scaffold(
     appBar: AppBar(title: const Text("Splash"),),
       body: Column(
