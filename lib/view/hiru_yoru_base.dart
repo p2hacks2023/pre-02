@@ -190,7 +190,6 @@ class HiruYoruBase extends StatelessWidget {
                   ),
                 ],
               ),
-              leading: Container(),
             ),
             SliverPersistentHeader(
               pinned: true,
