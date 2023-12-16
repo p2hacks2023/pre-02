@@ -40,4 +40,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/sign.jpg
+    - assets/title.PNG
+    - assets/splash.gif
+    - assets/str.PNG
