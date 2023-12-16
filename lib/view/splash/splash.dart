@@ -3,6 +3,7 @@ import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
+import 'package:firebase_tutorial/view_model/single/iine_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -51,13 +52,29 @@ class Splash extends StatelessWidget {
           Consumer(
             builder: (context, ref, _) {
               return TextButton(
-                onPressed: () {
-                  ref.read(profileViewModelProvider.notifier).addUserToProfile(mailAddress!);
+                onPressed: () async {
+                  await ref.read(profileViewModelProvider.notifier).addUserToProfile(mailAddress!);
                   router.push('/profile');
                 }, 
                 child: Text("プロフィールを見る")
               );
             }
+          ),
+          Consumer(
+            builder: (context, ref, _) {
+              return TextButton(
+                onPressed: () {
+                  ref.read(iineListViewModelProvider.notifier).addFavorites(
+                    [
+                      "tiharu717@gmail.com",
+                      "developer@developer.com",
+                    ]
+                  );
+                  router.push('/hiru/iinelist');
+                },
+                child: Text("いいね"),
+              );
+            },
           )
         ],
       ),
@@ -65,25 +82,3 @@ class Splash extends StatelessWidget {
   }
 }
 
-/*
-class Iine extends StatefulWidget {
-  const Iine({super.key});
-
-  @override
-  State<Iine> createState() => _IineState();
-}
-
-class _IineState extends State<Iine> {
-  bool isIine = false;
-  @override
-  Widget build(BuildContext context) {
-    Color color ;
-    if (isIine) color = Colors.red;
-    else color = Colors.black12;
-    return IconButton(
-      onPressed: () => setState(() {
-      isIine = !isIine;
-    }), 
-    icon: Icon(Icons.favorite, color:color));
-  }
-}*/

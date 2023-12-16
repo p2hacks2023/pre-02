@@ -30,8 +30,8 @@ class Hiru extends ConsumerWidget {
       */
       backgroundColor: Colors.white,
       body: HiruYoruBase(
-        leftTitle: 'TimeLine',
-        rightTitle: 'Profile',
+        leftTitle: 'Time Line',
+        rightTitle: 'My Profile',
         //TimeLineの中身↓
         leftWidget: ref.watch(hiruViewModelProvider).when(
               data: (HiruState data) {
@@ -50,7 +50,8 @@ class Hiru extends ConsumerWidget {
                             child: Container(
                               width: 130,
                               height: 75,
-                              color: Color.fromRGBO(249, 243, 217, 1),
+                              color: Colors.grey.withOpacity(0.1),
+                              //Color.fromRGBO(249, 243, 217, 1),
                               child: Column(
                                 children: [
                                   SizedBox(
@@ -63,7 +64,8 @@ class Hiru extends ConsumerWidget {
                                         ),
                                         onPressed: () {
                                           debugPrint('profile');
-                                          
+                                          ref.read(profileViewModelProvider.notifier).addUserToProfile(data.postsWithoutMe[index].poster);
+                                          router.push('/hiru/profile');
                                         },
                                         child: CircleAvatar(
                                         //投稿した人のプロフィール写真
@@ -196,7 +198,7 @@ class Hiru extends ConsumerWidget {
                                   numOfFavorite: data
                                       .postsOnlyMe[index].favoriteArray.length,
                                   ref: ref,
-                                  users: data.postsOnlyMe[index].favoriteArray as List<String>,
+                                  users: data.postsOnlyMe[index].favoriteArray,
                                 )
                               else
                                 Iine(
@@ -205,7 +207,7 @@ class Hiru extends ConsumerWidget {
                                   numOfFavorite: data
                                       .postsOnlyMe[index].favoriteArray.length,
                                   ref: ref,
-                                  users: data.postsOnlyMe[index].favoriteArray as List<String>,
+                                  users: data.postsOnlyMe[index].favoriteArray,
                                 ),
                               
                               //日付
@@ -341,3 +343,5 @@ class _IineState extends State<Iine> {
     );
   }
 }
+
+

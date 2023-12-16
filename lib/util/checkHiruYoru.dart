@@ -1,7 +1,7 @@
 //昼か夜かの判定
 class CheckHiruYoru {
   static bool isHiru() {
-    return false;
+    return true;
   }
 
   static bool isYoru() {

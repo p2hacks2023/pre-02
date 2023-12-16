@@ -41,7 +41,7 @@ final router = RoutemasterDelegate(
           '/test/firestore/post/add': (route) {
             return MaterialPage(child: AddPost());
           },
-          '/profile': (route) {
+          '/hiru/profile': (route) {
             return MaterialPage(child: Profile());
           },
           '/hiru/iinelist': (route) {
