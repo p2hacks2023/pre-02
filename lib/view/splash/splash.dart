@@ -38,7 +38,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
                     ),
                   );
                   ref.read(hiruViewModelProvider.notifier).initializePosts();
-                  if(CheckHiruYoru.isHiru()) {
+                  if(CheckHiruYoru.isHiru) {
                     await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
                     router.push('/hiru');
                   }else{

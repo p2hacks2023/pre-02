@@ -10,6 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Firebase.initializeApp();
+  await CheckHiruYoru.setIsHiru();
   runApp(
     const ProviderScope(
       child: MainApp(),
@@ -28,7 +29,7 @@ class _MainAppState extends State<MainApp> {
   ThemeData? theme;
   @override
   Widget build(BuildContext context) {
-    if (CheckHiruYoru.isYoru()) {
+    if(!CheckHiruYoru.isHiru){
       theme = ThemeData(
         canvasColor: const Color(0xFF190831),
         appBarTheme: const AppBarTheme(
