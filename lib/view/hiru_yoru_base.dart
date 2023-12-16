@@ -30,6 +30,8 @@ class HiruYoruBase extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              actionsIconTheme: IconThemeData(color: Colors.transparent),
+              iconTheme: IconThemeData(color: Colors.transparent),
               shadowColor: Colors.transparent,
               floating: true,
               snap: true,
@@ -188,6 +190,7 @@ class HiruYoruBase extends StatelessWidget {
                   ),
                 ],
               ),
+              leading: Container(),
             ),
             SliverPersistentHeader(
               pinned: true,

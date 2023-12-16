@@ -9,6 +9,7 @@ import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:routemaster/routemaster.dart';
 
 class GoogleAuthSignin extends StatefulWidget {
   const GoogleAuthSignin({super.key});
@@ -32,14 +33,24 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
         return Stack(
           children: <Widget>[
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/sign.jpg'),
+                  image: AssetImage('assets/str.PNG'),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/title.PNG'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              width: 390,
+              height: 500,
+            ),
+            /*Container(
               padding: EdgeInsets.only(top: 230, left: 100),
               child: Text(
                 'Strorally',
@@ -48,27 +59,36 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
                   fontSize: 50,
                 )
               )
-            ),
+            ),*/
             Container(
-              padding: EdgeInsets.only(top: 450, left: 80),
+              padding: const EdgeInsets.only(top: 450, left: 105),
               child: TextButton(
                 style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all<Size>(
-                    Size(250, 80),
+                  overlayColor: MaterialStateProperty.all<Color>(
+                    Colors.lightGreen.withOpacity(0.2),
                   ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Color.fromARGB(255, 227, 237, 122)),
+                  side: MaterialStateProperty.all<BorderSide>(
+                    const BorderSide(
+                        color: Color.fromARGB(255, 227, 237, 122),
+                        width: 2), // 枠線の色と幅を設定
+                  ),
+                  fixedSize: MaterialStateProperty.all<Size>(
+                   const Size(180, 80),
+                  ),
                 ),
-                child: Text('Googleでサインイン',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 20,
-                    )),
-                onPressed: () {
+                onPressed: () async {
                   signInWithGoogle(ref);
                 },
+                child: const Text(
+                  "signin",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Color.fromARGB(255, 227, 237, 122),
+                  ),
+                ),
               ),
             ),
+           
           ],
         );
       }),
@@ -92,7 +112,7 @@ class _GoogleAuthSigninState extends State<GoogleAuthSignin> {
             await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);
             router.replace('/hiru');
           } else {
-            router.replace('/yoru');
+            Routemaster.of(context).push('/yoru');
           }
         } else {
           await ref.read(profileViewModelProvider.notifier).addUserToProfile(ref.watch(userViewModelProvider).email);

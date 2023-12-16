@@ -1,6 +1,7 @@
 import 'package:firebase_tutorial/model/user.dart';
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
+import 'package:firebase_tutorial/view/google_sign_in/google_sign_in.dart';
 import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
@@ -8,7 +9,7 @@ import 'package:firebase_tutorial/view_model/single/iine_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Splash extends StatelessWidget {
+/*class Splash extends StatelessWidget {
   const Splash({super.key});
 
   @override
@@ -48,38 +49,84 @@ class Splash extends StatelessWidget {
               );
             }
           ),
-          TextField(
-            onChanged: (value) => mailAddress = value,
+          TextButton(child: Text("サインアップ画面に"), onPressed: () => router.push('/signup'),)
+        ],
+      ),
+    );
+  }
+}*/
+
+class Splash extends StatelessWidget {
+  const Splash({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 5), () {
+      router..pop().whenComplete(() => router.replace('/signin'));
+    });
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 80, top: 300),
+            child: Image.asset(
+              width: 240,
+              height: 190,
+              'assets/splash.gif',
+            ),
+    
           ),
-          Consumer(
-            builder: (context, ref, _) {
-              return TextButton(
-                onPressed: () async {
-                  await ref.read(profileViewModelProvider.notifier).addUserToProfile(mailAddress!);
-                  router.push('/profile');
-                }, 
-                child: Text("プロフィールを見る")
-              );
-            }
-          ),
-          Consumer(
-            builder: (context, ref, _) {
-              return TextButton(
-                onPressed: () {
-                  ref.read(iineListViewModelProvider.notifier).addFavorites(
-                    [
-                      "tiharu717@gmail.com",
-                      "developer@developer.com",
-                    ]
-                  );
-                  router.push('/hiru/iinelist');
-                },
-                child: Text("いいね"),
-              );
-            },
-          )
         ],
       ),
     );
   }
 }
+
+/*
+class Splash extends StatelessWidget {
+  const Splash({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSplashScreen(
+      splash:  
+          Container(
+            padding: EdgeInsets.only(left:20),
+            child: Image.asset(
+              'assets/splash.gif',
+              fit: BoxFit.cover,
+            ),
+          ),
+        
+      
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      nextScreen: ,
+      splashIconSize: 300,
+      duration: 4000,
+    );
+  }
+}
+*/
+
+/*
+class Iine extends StatefulWidget {
+  const Iine({super.key});
+
+  @override
+  State<Iine> createState() => _IineState();
+}
+
+class _IineState extends State<Iine> {
+  bool isIine = false;
+  @override
+  Widget build(BuildContext context) {
+    Color color ;
+    if (isIine) color = Colors.red;
+    else color = Colors.black12;
+    return IconButton(
+      onPressed: () => setState(() {
+      isIine = !isIine;
+    }), 
+    icon: Icon(Icons.favorite, color:color));
+  }
+}*/
+
