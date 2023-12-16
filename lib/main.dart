@@ -30,12 +30,12 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     if (CheckHiruYoru.isYoru()) {
       theme = ThemeData(
-          canvasColor: const Color(0xFF190831),
-          textTheme: TextTheme(),
-          appBarTheme: const AppBarTheme(
-            color: Color(0xFF240A4B),
-          ));
-    } else {
+        canvasColor: const Color(0xFF190831),
+        appBarTheme: const AppBarTheme(
+          color:Color(0xFF240A4B),
+        )
+      );
+    }else{
       theme = ThemeData(
         canvasColor: const Color(0xFFFFFFFF),
         appBarTheme: const AppBarTheme(

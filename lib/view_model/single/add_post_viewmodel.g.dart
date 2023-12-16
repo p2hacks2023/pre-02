@@ -6,12 +6,12 @@ part of 'add_post_viewmodel.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addPostViewModelHash() => r'4d55292ca934cc554cf4065cb9c362d88f05ce64';
+String _$addPostViewModelHash() => r'ad9ca2754d81a66bc8013630bff8973762ef87ba';
 
 /// See also [AddPostViewModel].
 @ProviderFor(AddPostViewModel)
 final addPostViewModelProvider =
-    AutoDisposeNotifierProvider<AddPostViewModel, AddPostState>.internal(
+    NotifierProvider<AddPostViewModel, AddPostState>.internal(
   AddPostViewModel.new,
   name: r'addPostViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final addPostViewModelProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$AddPostViewModel = AutoDisposeNotifier<AddPostState>;
+typedef _$AddPostViewModel = Notifier<AddPostState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

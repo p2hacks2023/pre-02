@@ -1,6 +1,7 @@
 import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/util/checkHiruYoru.dart';
 import 'package:firebase_tutorial/view_model/multi/users_repository.dart';
+import 'package:firebase_tutorial/view_model/single/add_post_viewmodel.dart';
 import 'package:firebase_tutorial/view_model/single/google_sign_in_view_model.dart';
 import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
 import 'package:flutter/material.dart';

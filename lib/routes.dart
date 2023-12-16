@@ -26,6 +26,9 @@ final router = RoutemasterDelegate(
           '/post/add': (route) {
             return MaterialPage(child: AddPost());
           },
+          '/post/add/camera': (route) {
+            return MaterialPage(child: TakePictureScreen());
+          },
           '/home': (router) {
             return const MaterialPage(child: Home());
           },
@@ -39,4 +42,4 @@ final router = RoutemasterDelegate(
           '/test/firestore/post/add': (route) {
             return MaterialPage(child: AddPost());
           },
-        }));
+}));

@@ -1,5 +1,6 @@
 import 'package:firebase_tutorial/state/hiru_state.dart';
 import 'package:firebase_tutorial/view/hiru_yoru_base.dart';
+import 'package:firebase_tutorial/view/post/add_post.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
@@ -14,9 +15,9 @@ class Yoru extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Color(0xff190831),
       body: HiruYoruBase(
-        leftTitle: 'addpost',
-        rightTitle: 'Profile',
-        leftWidget: Text("左"),
+        leftTitle: 'Add Post',
+        rightTitle: 'My Profile',
+        leftWidget: AddPost(),
         rightWidget: ref.watch(hiruViewModelProvider).when(
               data: (HiruState data) {
                 return ListView.builder(
@@ -116,6 +117,8 @@ class Yoru extends ConsumerWidget {
         image: Uri.parse(
             'https://cdn.discordapp.com/attachments/1181202431116312719/1185187126946574416/42_20231215204918.PNG?ex=658eb286&is=657c3d86&hm=e6c6a9b4b5890e96204f40f6539e55e6fa32618455e78d01a130b8a8244b7e57&'),
       ),
+      backgroundColor: Color(0xFF190831),
+      //backgroundColor: Colors.transparent,
     );
   }
 }
