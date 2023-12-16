@@ -1,3 +1,4 @@
+import 'package:firebase_tutorial/routes.dart';
 import 'package:firebase_tutorial/state/hiru_state.dart';
 import 'package:firebase_tutorial/view/hiru_yoru_base.dart';
 import 'package:firebase_tutorial/view/profile/profile.dart';
@@ -5,8 +6,10 @@ import 'package:firebase_tutorial/view_model/multi/profile_view_model.dart';
 import 'package:firebase_tutorial/view_model/multi/posts_repository.dart';
 import 'package:firebase_tutorial/view_model/multi/user_view_model.dart';
 import 'package:firebase_tutorial/view_model/single/hiru_viewmodel.dart';
+import 'package:firebase_tutorial/view_model/single/iine_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 class Hiru extends ConsumerWidget {
   const Hiru({
@@ -25,7 +28,7 @@ class Hiru extends ConsumerWidget {
             ref.read(hiruViewModelProvider.notifier).initializePosts(),
       )),
       */
-      backgroundColor: Color(0xffffffe5),
+      backgroundColor: Colors.white,
       body: HiruYoruBase(
         leftTitle: 'TimeLine',
         rightTitle: 'Profile',
@@ -33,7 +36,7 @@ class Hiru extends ConsumerWidget {
         leftWidget: ref.watch(hiruViewModelProvider).when(
               data: (HiruState data) {
                 return ListView.builder(
-                  itemCount: data.posts.length,
+                  itemCount: data.postsWithoutMe.length,
                   itemBuilder: (context, index) {
                     return Container(
                       padding: EdgeInsets.all(10),
@@ -53,17 +56,25 @@ class Hiru extends ConsumerWidget {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  CircleAvatar(
-                                    //投稿した人のプロフィール写真
-                                    radius: 20,
-                                    backgroundColor: Colors.transparent,
-                                    backgroundImage: NetworkImage(data
-                                        .postsWithoutMe[index].posterIconUrl
-                                        .toString()),
-                                  ),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: CircleBorder(),
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                        onPressed: () {
+                                          debugPrint('profile');
+                                          
+                                        },
+                                        child: CircleAvatar(
+                                        //投稿した人のプロフィール写真
+                                        radius: 20,
+                                        backgroundColor: Colors.transparent,
+                                        backgroundImage: NetworkImage(data
+                                            .postsWithoutMe[index].posterIconUrl
+                                            .toString()),
+                                      ),
+                                      ),                                   
+                                  
                                   Text(
                                     //投稿した人の名前
                                     data.postsWithoutMe[index].nickname,
@@ -84,11 +95,10 @@ class Hiru extends ConsumerWidget {
                                         .toString())),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             //いいね・日付
                             children: [
-                              SizedBox(
-                                width: 10,
-                              ),
+                             
                               //月
                               if (data.postsWithoutMe[index].favoriteArray
                                   .contains(
@@ -99,6 +109,8 @@ class Hiru extends ConsumerWidget {
                                   email: ref.watch(userViewModelProvider).email,
                                   numOfFavorite: data.postsWithoutMe[index]
                                       .favoriteArray.length,
+                                  ref: ref,
+                                  users: data.postsWithoutMe[index].favoriteArray,
                                 )
                               else
                                 Iine(
@@ -106,21 +118,25 @@ class Hiru extends ConsumerWidget {
                                   email: ref.watch(userViewModelProvider).email,
                                   numOfFavorite: data.postsWithoutMe[index]
                                       .favoriteArray.length,
+                                  ref: ref,
+                                  users: data.postsWithoutMe[index].favoriteArray,
                                 ),
-                              SizedBox(
-                                width: 150,
-                              ),
+                              
                               //日付
-                              Text(
-                                  '${data.postsWithoutMe[index].postDatetime.year.toString()}/'),
-                              Text(
-                                  '${data.postsWithoutMe[index].postDatetime.month.toString()}/'),
-                              Text(
-                                  '${data.postsWithoutMe[index].postDatetime.day.toString()}/'),
-                              Text(
-                                  '${data.postsWithoutMe[index].postDatetime.hour.toString()}:'),
-                              Text(
-                                  '${data.postsWithoutMe[index].postDatetime.minute.toString()}'),
+                              Row(
+                                children: [
+                                  Text(
+                                      '${data.postsWithoutMe[index].postDatetime.year.toString()}/'),
+                                  Text(
+                                      '${data.postsWithoutMe[index].postDatetime.month.toString()}/'),
+                                  Text(
+                                      '${data.postsWithoutMe[index].postDatetime.day.toString()}/'),
+                                  Text(
+                                      '${data.postsWithoutMe[index].postDatetime.hour.toString()}:'),
+                                  Text(
+                                      '${data.postsWithoutMe[index].postDatetime.minute.toString()}'),
+                                ],
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -166,10 +182,9 @@ class Hiru extends ConsumerWidget {
                           ),
                           //いいね・日付
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: 10,
-                              ),
+                              
                               //月
                               if (data.postsOnlyMe[index].favoriteArray
                                   .contains(
@@ -180,6 +195,8 @@ class Hiru extends ConsumerWidget {
                                   email: ref.watch(userViewModelProvider).email,
                                   numOfFavorite: data
                                       .postsOnlyMe[index].favoriteArray.length,
+                                  ref: ref,
+                                  users: data.postsOnlyMe[index].favoriteArray as List<String>,
                                 )
                               else
                                 Iine(
@@ -187,21 +204,25 @@ class Hiru extends ConsumerWidget {
                                   email: ref.watch(userViewModelProvider).email,
                                   numOfFavorite: data
                                       .postsOnlyMe[index].favoriteArray.length,
+                                  ref: ref,
+                                  users: data.postsOnlyMe[index].favoriteArray as List<String>,
                                 ),
-                              SizedBox(
-                                width: 150,
-                              ),
+                              
                               //日付
-                              Text(
-                                  '${data.postsOnlyMe[index].postDatetime.year.toString()}/'),
-                              Text(
-                                  '${data.postsOnlyMe[index].postDatetime.month.toString()}/'),
-                              Text(
-                                  '${data.postsOnlyMe[index].postDatetime.day.toString()}/'),
-                              Text(
-                                  '${data.postsOnlyMe[index].postDatetime.hour.toString()}:'),
-                              Text(
-                                  '${data.postsOnlyMe[index].postDatetime.minute.toString()}'),
+                              Row(
+                                children: [
+                                  Text(
+                                      '${data.postsOnlyMe[index].postDatetime.year.toString()}/'),
+                                  Text(
+                                      '${data.postsOnlyMe[index].postDatetime.month.toString()}/'),
+                                  Text(
+                                      '${data.postsOnlyMe[index].postDatetime.day.toString()}/'),
+                                  Text(
+                                      '${data.postsOnlyMe[index].postDatetime.hour.toString()}:'),
+                                  Text(
+                                      '${data.postsOnlyMe[index].postDatetime.minute.toString()}'),
+                                ],
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -238,11 +259,17 @@ class Iine extends StatefulWidget {
   final postId;
   final email;
   int numOfFavorite;
+  WidgetRef ref;
+  List users;
   Iine(
       {this.isFavorite = false,
       required this.postId,
       required this.email,
-      required this.numOfFavorite});
+      required this.numOfFavorite,
+      required this.ref,
+      required this.users,
+      }
+      );
 
   @override
   _IineState createState() => _IineState();
@@ -289,7 +316,27 @@ class _IineState extends State<Iine> {
             })
           ],
         ),
-        Text('いいね${widget.numOfFavorite.toString()}件'),
+        Consumer(
+          builder: (context, ref, _) {
+            return TextButton(
+              onPressed: () async {
+                ref.read(iineListViewModelProvider.notifier).addFavorites(widget.users);
+                //widget.users.forEach(
+                //  (element) => debugPrint(element.toString())
+                //);
+                router.push('/hiru/iinelist');
+              }, //required List favoriteArray,
+              child: Text(
+                'いいね${widget.numOfFavorite.toString()}件',
+              style: TextStyle(color: Colors.black),
+              ),
+              style: TextButton.styleFrom(
+                primary: Colors.transparent,
+                elevation: 0,
+              ),
+              );
+          }
+        ),
       ],
     );
   }

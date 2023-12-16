@@ -3,6 +3,7 @@ import 'package:firebase_tutorial/view/Hiru/hiru.dart';
 import 'package:firebase_tutorial/view/Yoru/yoru.dart';
 import 'package:firebase_tutorial/view/google_sign_in/signup.dart';
 import 'package:firebase_tutorial/view/home.dart';
+import 'package:firebase_tutorial/view/iine_list.dart';
 import 'package:firebase_tutorial/view/post/add_post.dart';
 import 'package:firebase_tutorial/view/google_sign_in/google_sign_in.dart';
 import 'package:firebase_tutorial/view/profile/profile.dart';
@@ -43,5 +44,8 @@ final router = RoutemasterDelegate(
           '/profile': (route) {
             return MaterialPage(child: Profile());
           },
+          '/hiru/iinelist': (route) {
+            return MaterialPage(child: IineList());
+          }
   })
 );

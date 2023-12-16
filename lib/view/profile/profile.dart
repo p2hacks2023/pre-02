@@ -56,7 +56,8 @@ class Profile extends ConsumerWidget {
                 ),
               ),
               SliverToBoxAdapter(
-                child: Column(
+                child: ref.watch(profileViewModelProvider).maybeWhen(
+                  data: (ProfileState data) => Column(
                   children: <Widget>[
                     SizedBox(
                       height: 20,
@@ -71,7 +72,7 @@ class Profile extends ConsumerWidget {
                       child: Center(
                           child: Consumer(
                         builder: (context, ref, _) => Image.network(
-                            ref.watch(userViewModelProvider).iconUrl.toString()),
+                            data.user!.iconUrl.toString()),
                       )
                           /*Text(
                           '写真',
@@ -84,7 +85,7 @@ class Profile extends ConsumerWidget {
                     ),
                     Consumer(builder: (context, ref, _) {
                       return Text(
-                        ref.watch(userViewModelProvider).nickname,
+                        data.user!.nickname,
                         style:
                             TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       );
@@ -94,85 +95,14 @@ class Profile extends ConsumerWidget {
                     ),
                   ],
                 ),
+                orElse: SizedBox.shrink,
+                )
               ),
             
             ];
           },
           body: SizedBox.shrink(),
         ),
-    );
-  }
-  
-  Widget aboutMe(User user, BuildContext context, WidgetRef ref){
-    String nickname = user.nickname;
-    UsersRepository usersRepository = UsersRepository();
-    return Column(
-      children: [
-        Image.network(
-          user.iconUrl.toString(),
-          height: 150,
-          errorBuilder: (context, error, stackTrace) {
-            return Text("接続エラー");
-          },
-        ),
-        const SizedBox(height: 30,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(width: 20,),
-            Text(
-              user.nickname,
-              style: TextStyle(
-                fontSize: 25,
-              ),
-            ),
-            IconButton(
-              onPressed: () => showDialog(
-                context: context,
-                barrierLabel: "ニックネームの変更",
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text("ニックネームの編集"),
-                    actions: [
-                      TextButton(
-                        onPressed: (){
-                          nickname = user.nickname;
-                          router.pop();
-                        }, 
-                        child: const Text("キャンセル")),
-                      TextButton(
-                        onPressed: () async {
-                          await usersRepository.changeNickname(ref, nickname);
-                          ref.read(hiruViewModelProvider.notifier).initializePosts();
-                          ref.read(profileViewModelProvider.notifier).addUserToProfile(user.email);
-                          router.pop();
-                        },
-                        child: const Text("変更する"),
-                      )
-                    ],
-                    content: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          TextField(
-                            onChanged: (value) => nickname = value,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              icon: const Icon(Icons.edit),
-            ),
-          ],
-        ),
-        Text(
-          user.introduction,
-        ),
-        Divider(
-          color: Colors.black,
-        )
-      ],
     );
   }
 }
