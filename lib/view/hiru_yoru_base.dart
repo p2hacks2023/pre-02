@@ -9,11 +9,15 @@ class HiruYoruBase extends StatelessWidget {
     required this.rightTitle,
     required this.leftWidget,
     required this.rightWidget,
+    required this.color,
+    required this.image,
   });
   final String leftTitle;
   final String rightTitle;
   final Widget leftWidget;
   final Widget rightWidget;
+  final Color color;
+  final Uri image;
 
   @override
   Widget build(BuildContext context) {
@@ -24,37 +28,17 @@ class HiruYoruBase extends StatelessWidget {
           return <Widget>[
             SliverAppBar(
               shadowColor: Colors.transparent,
-              //pinned: true,
               floating: true,
               snap: true,
               expandedHeight: 50,
               backgroundColor: Colors.transparent,
               surfaceTintColor: Colors.transparent,
-
-              title: Stack(
+              title: Column(
                 children: [
-                  Text(
-                    "Strollary",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-
-                      //color: Colors.black,
-
-                      foreground: Paint()
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 3
-                        ..color = Colors.white,
-                    ),
+                  SizedBox(
+                    height: 20,
                   ),
-                  Text(
-                    "Strollary",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Image.network(width: 250, height: 250, image.toString()),
                 ],
               ),
             ),
@@ -62,34 +46,42 @@ class HiruYoruBase extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: Center(
-                        child: Consumer(
-                      builder: (context, ref, _) => Image.network(
+                  Consumer(
+                    builder: (context, ref, _) => CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage(
                           ref.watch(userViewModelProvider).iconUrl.toString()),
-                    )
-                        /*Text(
-                        '写真',
-                        style: TextStyle(fontSize: 30),
-                      ),*/
-                        ),
+                    ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Consumer(builder: (context, ref, _) {
-                    return Text(
-                      ref.watch(userViewModelProvider).nickname,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    return Column(
+                      children: [
+                        Text(
+                          ref.watch(userViewModelProvider).nickname,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: color,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          ref.watch(userViewModelProvider).introduction,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: color,
+                          ),
+                        ),
+                      ],
                     );
                   }),
                   SizedBox(
@@ -100,55 +92,22 @@ class HiruYoruBase extends StatelessWidget {
             ),
             SliverPersistentHeader(
               pinned: true,
-              //floating: true,
               delegate: _StickyTabBarDelegate(
                   tabBar: TabBar(
                 indicator: BoxDecoration(),
-                labelColor: Colors.black,
+                labelColor: color,
                 dividerColor: Colors.transparent,
                 tabs: [
                   Tab(
-                    child: Stack(
-                      children: [
-                        /*
-                        Text(
-                          leftTitle,
-                          style: TextStyle(
-                            fontSize: 18,
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 3
-                              ..color = Colors.white,
-                          ),
-                        ),
-                        */
-                        Text(
-                          leftTitle,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
+                    child: Text(
+                      leftTitle,
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
                   Tab(
-                    child: Stack(
-                      children: [
-                        /*
-                        Text(
-                          rightTitle,
-                          style: TextStyle(
-                            fontSize: 18,
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 3
-                              ..color = Colors.white,
-                          ),
-                        ),
-                        */
-                        Text(
-                          rightTitle,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
+                    child: Text(
+                      rightTitle,
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
                 ],

@@ -6,9 +6,8 @@ part 'post.freezed.dart';
 
 @freezed
 class Post with _$Post {
-
   factory Post({
-    required String poster,//メールアドレスが入ってる
+    required String poster, //メールアドレスが入ってる
     required String description,
     required Uri imageUrl,
     required String nickname,
@@ -17,17 +16,17 @@ class Post with _$Post {
     required String id,
     required Uri posterIconUrl,
   }) = _Post;
-  
+
   factory Post.fromFirestore(
     DocumentSnapshot<Object?> snapshot,
   ) {
     final data = snapshot.data() as Map<String, dynamic>;
     String poster = data['poster'];
-    if(poster == '') throw Exception("invalid poster");
+    if (poster == '') throw Exception("invalid poster");
     String description = data['description'];
     Uri url = Uri.parse(data['image_url']);
     String nickname = data['nickname'];
-    
+
     //TODO favoriteの実装
     List favorites = data['favorite_array'] as List;
 
@@ -35,7 +34,6 @@ class Post with _$Post {
     DateTime postDatetime = postTimestamp.toDate();
 
     //_post_datetime = data?['post_datetime'].toDate();
-    postDatetime = DateTime.now();
     debugPrint("fromfirestore");
     Uri posterIconUrl = Uri.parse(data['poster_icon']);
 
@@ -50,7 +48,7 @@ class Post with _$Post {
       posterIconUrl: posterIconUrl,
     );
   }
-  
+
   /*
   Map<String, dynamic> toFirestore() {
     return {
