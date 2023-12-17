@@ -37,6 +37,12 @@ Strollary(ストロラリー)
 ![image](https://github.com/p2hacks2023/pre-02/assets/44548782/4bc6ee53-d852-4880-aa7f-8e5bdac1a620)
 ![image](https://github.com/p2hacks2023/pre-02/assets/44548782/e25576fa-2742-4d76-93f6-67ed52fb781d)
 
+### 昼
+<img width="564" alt="image" src="https://github.com/p2hacks2023/pre-02/assets/44548782/1a69d6bb-5fdf-43bd-b804-92983e8c7779">
+<img width="564" alt="image" src="https://github.com/p2hacks2023/pre-02/assets/44548782/c07c54e2-16d0-41b4-8bde-2cc272a7a112">
+<img width="564" alt="image" src="https://github.com/p2hacks2023/pre-02/assets/44548782/23998e27-65d8-4994-9a4e-76efedad5b02">
+
+
 ## 開発体制
 
 役割分担...
